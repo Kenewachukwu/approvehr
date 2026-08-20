@@ -242,19 +242,28 @@
    Utilities
    ========================================================================== */
 
-/* The marketing site is read on 27" monitors as often as laptops. 1200px left
-   a third of a large screen empty; 1440 fills it without letting line length
-   run past what is comfortable — running text is constrained separately. */
+/* A conventional 1200px measure with real margin either side.
+   This was 1440px (stepping to 1520px above 1600px) to fill a 27" monitor, and
+   it read as too wide — a wall of content edge to edge with nothing framing it.
+   Whitespace at the margins is what makes a page look composed rather than
+   merely full, so the width is now standard and the padding grows with the
+   viewport instead of the content doing so. */
 @utility container-page {
   margin-inline: auto;
   width: 100%;
-  max-width: 1440px;
+  max-width: 1200px;
   padding-inline: 1.5rem;
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 640px) {
   .container-page {
-    max-width: 1520px;
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-inline: 3rem;
   }
 }
 
