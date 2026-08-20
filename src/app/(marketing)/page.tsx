@@ -31,9 +31,9 @@ const closingCta = liveProductCta("Explore the product first", {
 });
 
 export const metadata: Metadata = {
-  title: "HR, payroll and hiring for Nigerian companies",
+  title: "HR and payroll software for Nigerian companies",
   description:
-    "ApproveHR runs your employee records, payroll, hiring and approvals in one place — with PAYE, pension and NHF calculated to current Nigerian law.",
+    "One system for employee records, payroll, recruitment, leave and approvals. PAYE, pension and NHF calculated to current Nigerian law, with every schedule your state IRS and PFAs expect.",
 };
 
 /**
@@ -74,21 +74,26 @@ export default function HomePage() {
       <section className="px-4 pb-20 pt-16 sm:pt-24">
         <div className="container-page">
           <div className="text-center">
+            <Reveal delay={40}>
+              <p className="text-[0.8125rem] font-medium uppercase tracking-[0.1em] text-slate-muted">
+                HR, payroll and recruitment · Built for Nigeria
+              </p>
+            </Reveal>
+
             <Reveal delay={60}>
-              <h1 className="mx-auto max-w-4xl text-mega text-slate">
-                Payroll day should be boring.
+              <h1 className="mx-auto mt-5 max-w-4xl text-mega text-slate">
+                All your HR and payroll, in one system.
               </h1>
             </Reveal>
 
             <Reveal delay={120}>
               <p className="mx-auto mt-7 max-w-2xl text-lead text-slate-muted">
-                Most Nigerian companies rebuild payroll every month. A
-                spreadsheet here, a consultant there, three days of checking,
-                and a quiet hope that nothing was missed before the 10th.
+                Employee records, payroll, recruitment, leave and approvals —
+                one platform, one employee record, no re-typing.
                 <span className="block pt-3 text-slate">
-                  ApproveHR ends that. PAYE, pension and NHF to the letter.
-                  Every schedule your state IRS and PFAs expect. Nothing to
-                  rebuild.
+                  PAYE, pension and NHF calculated to current Nigerian law.
+                  Every schedule your state IRS and PFAs expect, generated from
+                  the run.
                 </span>
               </p>
             </Reveal>
@@ -103,8 +108,8 @@ export default function HomePage() {
                 </Pill>
               </div>
               <p className="mt-4 text-[0.8125rem] text-slate-muted">
-                No card. No install. The demo is the real product, running on
-                real numbers.
+                Thirty minutes on your own numbers. No card, no install, no
+                procurement step before you have decided anything.
               </p>
             </Reveal>
           </div>
@@ -159,9 +164,9 @@ export default function HomePage() {
         <div className="container-page">
           <Reveal>
             <SectionHeading
-              eyebrow="Built for how you actually work"
-              title="Not every company is an office with a 22-day month."
-              lead="A site crew on rotating shifts, a head office on salary, a contractor on withholding tax — one payroll run, three sets of rules. The working month, the salary structure and what counts as pensionable are yours to set, not ours to assume."
+              eyebrow="Built for how your company runs"
+              title="One payroll run. Three sets of rules."
+              lead="A site crew on rotating shifts. A head office on salary. A contractor on withholding tax. Your working month, salary structure and pensionable components are settings you control — not assumptions we make."
             />
           </Reveal>
 
@@ -201,9 +206,9 @@ export default function HomePage() {
         <div className="container-page">
           <Reveal>
             <SectionHeading
-              eyebrow="Platform overview"
-              title="Six modules. One employee record. No re-typing."
-              lead="What hiring agrees becomes the contract. What attendance records is what payroll pays. Change someone's bank details once and every part of the system knows."
+              eyebrow="One platform"
+              title="Six modules. One employee record."
+              lead="What recruitment agrees becomes the contract. What attendance records is what payroll pays. Change a bank account once, and every module knows."
             />
           </Reveal>
           <Reveal delay={100}>
@@ -226,9 +231,9 @@ export default function HomePage() {
         <div className="container-page grid gap-14 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <SectionHeading
-              eyebrow="Why it is different here"
-              title="Global HR tools stop at the salary. Nigeria starts there."
-              lead="They will happily store what someone earns. Then the real work begins — PAYE split by state, pension split by PFA, NHF, NSITF — and it lands back on your finance lead, a spreadsheet, and a consultant on retainer."
+              eyebrow="Statutory compliance"
+              title="Global HR tools stop at the salary."
+              lead="They store what someone earns. Then the real work starts — PAYE split by state, pension split by PFA, NHF, NSITF — and it lands back on your finance lead, a spreadsheet and a consultant on retainer. That is the part we built first."
             />
             <ul className="mt-9 flex flex-col gap-4">
               {[
@@ -265,8 +270,9 @@ export default function HomePage() {
         <div className="container-page">
           <Reveal>
             <SectionHeading
-              title="One payroll run. Every obligation it creates."
-              lead="A single month for a 264-person company with staff in two states and three pension providers. This is what comes out of one approved run — each figure computed, not re-keyed."
+              eyebrow="What one run produces"
+              title="Approve once. Every obligation follows."
+              lead="One month for a 264-person company, staff in two states, three pension providers. Everything below comes out of a single approved run — computed, not re-keyed."
             />
           </Reveal>
 
@@ -275,17 +281,17 @@ export default function HomePage() {
               {
                 value: <CountUp to={7} />,
                 label:
-                  "Separate remittance schedules — one per state revenue service, one per PFA, plus NHF and NSITF. Each formatted the way that body asks for it.",
+                  "Remittance schedules — one per state IRS, one per PFA, plus NHF and NSITF. Each formatted the way that body asks for it.",
               },
               {
                 value: <CountUp to={264} />,
                 label:
-                  "Itemised payslips generated and sent, each showing gross, every deduction, and net — with employer pension shown separately so nobody thinks their pay was cut.",
+                  "Itemised payslips, sent. Gross, every deduction, net — with employer pension shown separately, so nobody thinks their pay was cut.",
               },
               {
                 value: <CountUp to={3} />,
                 label:
-                  "Named approvers on the trail before a payment file exists. Prepared, reviewed, released — each step timestamped.",
+                  "Named approvers before a payment file exists. Prepared, reviewed, released — each step timestamped.",
               },
             ].map((item, i) => (
               <Reveal key={i} as="div" delay={i * 70}>
