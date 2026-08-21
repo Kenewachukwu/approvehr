@@ -1,7 +1,19 @@
 import type { Metadata } from "next";
 import { Check } from "lucide-react";
+import Image from "next/image";
 import { Reveal } from "@/components/marketing/motion";
 import { DemoForm } from "./form";
+
+const LOGOS = [
+  { src: "/clients/nnpc.png", alt: "NNPC", w: 414, h: 120 },
+  { src: "/clients/fmm.png", alt: "Federal Ministry", w: 225, h: 120 },
+  { src: "/clients/crffn.png", alt: "CRFFN", w: 209, h: 120 },
+  { src: "/clients/usce.png", alt: "USCE", w: 213, h: 120 },
+  { src: "/clients/schull.png", alt: "Schulltech", w: 430, h: 96 },
+  { src: "/clients/beat.png", alt: "Beate Synergy", w: 252, h: 96 },
+  { src: "/clients/voz.png", alt: "Vomoz", w: 243, h: 120 },
+  { src: "/clients/schullio.png", alt: "schull.io", w: 570, h: 120 },
+];
 
 export const metadata: Metadata = {
   title: "Book a demo",
@@ -64,6 +76,49 @@ export default function DemoPage() {
               Your details are not sold, shared or added to a marketing list
               without you asking.
             </p>
+
+            <div className="mt-10 border-t border-sand-line pt-8">
+              <p className="text-[0.6875rem] font-semibold uppercase tracking-widest text-slate-muted">
+                Trusted by Nigerian teams in energy, government and technology
+              </p>
+              <div className="mt-5 grid grid-cols-4 gap-x-6 gap-y-4">
+                {LOGOS.map((logo) => (
+                  <Image
+                    key={logo.src}
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={logo.w}
+                    height={logo.h}
+                    className="h-7 w-auto object-contain opacity-50"
+                  />
+                ))}
+              </div>
+            </div>
+
+            <figure className="mt-7 rounded-2xl border border-sand-line bg-white/70 p-6">
+              <blockquote className="text-[0.9375rem] leading-relaxed text-slate">
+                &ldquo;Compliance and scale were what kept me up. Payroll and
+                tax now run themselves, and I finally get numbers I can make
+                decisions on instead of numbers I have to check.&rdquo;
+              </blockquote>
+              <figcaption className="mt-5 flex items-center gap-3 border-t border-sand-line pt-4">
+                <Image
+                  src="/avatars/ko.png"
+                  alt=""
+                  width={44}
+                  height={44}
+                  className="size-10 shrink-0 rounded-full object-cover"
+                />
+                <div className="min-w-0">
+                  <p className="text-[0.875rem] font-medium text-slate">
+                    Ayo Oseni
+                  </p>
+                  <p className="text-[0.8125rem] text-slate-muted">
+                    Founder, USCExperts
+                  </p>
+                </div>
+              </figcaption>
+            </figure>
           </div>
         </Reveal>
 
