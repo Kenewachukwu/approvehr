@@ -38,8 +38,8 @@ export default function DemoPage() {
             <ul className="mt-10 flex flex-col gap-5">
               {[
                 {
-                  title: "You will see a full payroll run",
-                  body: "Prepared, PAYE and pension calculated, sent for approval, schedules generated. Not a slide of one.",
+                  title: "You will see payroll done end to end",
+                  body: "PAYE and pension calculated, sent for approval, schedules generated — the whole thing, not a slide of it.",
                 },
                 {
                   title: "We will tell you if it does not fit",

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: "Is there an implementation fee?",
-    a: "Not to start. If you want us to migrate existing records, balances and payroll history and reconcile your first run against your old system, that is quoted separately from ₦250,000.",
+    a: "Not to start. If you want us to migrate existing records, balances and payroll history and reconcile your first payroll against your old system, that is quoted separately from ₦250,000.",
   },
   {
     q: "What happens when we cross a headcount band?",
@@ -25,7 +25,7 @@ const FAQ = [
     a: "No. Billing counts active employees on the first of the month. Leavers drop off the next cycle.",
   },
   {
-    q: "Can we run payroll only?",
+    q: "Can we use payroll only?",
     a: "Payroll needs the employee record underneath it, so Core HR is always included. There is no cheaper payroll-only tier, because it would not work.",
   },
   {
@@ -141,7 +141,7 @@ export default function PricingPage() {
                 Still not sure which tier you land in?
               </h2>
               <p className="mx-auto mt-5 max-w-lg text-[1.0625rem] leading-relaxed text-white/60">
-                Tell us your headcount and how you run payroll today. We will
+                Tell us your headcount and how you process payroll today. We will
                 tell you what it would cost and what it would replace.
               </p>
               <div className="mt-9 flex justify-center">

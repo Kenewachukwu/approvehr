@@ -88,7 +88,7 @@ export const MODULES: ModuleDef[] = [
     label: "Payroll",
     headline: "Payroll that knows Nigerian law",
     blurb:
-      "Run payroll with PAYE, pension and NHF calculated to current law. Every schedule your state IRS and PFAs ask for comes out of the run itself.",
+      "Process payroll with PAYE, pension and NHF calculated to current law. Every schedule your state IRS and PFAs ask for is generated automatically.",
     wash: "green",
     statutory: "PAYE · Pension · NHF · NSITF · ITF",
     capabilities: [
@@ -100,12 +100,12 @@ export const MODULES: ModuleDef[] = [
       {
         title: "Remittance schedules",
         detail:
-          "Pension schedules per PFA, PAYE per state IRS, NHF returns. Generated from the run, never rebuilt in Excel.",
+          "Pension schedules per PFA, PAYE per state IRS, NHF returns. Generated automatically, never rebuilt in Excel.",
       },
       {
         title: "Approval before money moves",
         detail:
-          "A run is prepared, reviewed and approved by named people. The payment file only exists after approval.",
+          "Every payroll is prepared, reviewed and approved by named people. The payment file only exists after approval.",
       },
       {
         title: "Loans and salary advances",
