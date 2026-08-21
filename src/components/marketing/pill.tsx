@@ -5,9 +5,8 @@ import { cn } from "@/lib/cn";
 /*
  * One button language for the whole marketing site.
  *
- *   solid    brand green fill, ink label — 8.6:1. The single primary action
- *            on any given screen. Green is the approval colour, so the button
- *            that starts a relationship wears it.
+ *   solid    brand blue fill, white label — 9.6:1. The single primary action
+ *            on any given screen.
  *   dark     near-black fill, white label — 17.9:1. Secondary, and the default
  *            inside light washed cards where green would fight the tint.
  *   quiet    hairline outline on sand. Tertiary.
@@ -21,7 +20,7 @@ type Size = "md" | "lg";
 
 const VARIANTS: Record<Variant, string> = {
   solid:
-    "bg-success text-slate hover:bg-success-strong hover:text-white shadow-[0_1px_2px_rgb(20_18_15/0.10)]",
+    "bg-accent text-white hover:bg-accent-hover shadow-[0_1px_2px_rgb(20_18_15/0.10)]",
   dark: "bg-slate text-white hover:bg-slate-soft shadow-[0_1px_2px_rgb(20_18_15/0.14)]",
   quiet:
     "border border-sand-line bg-transparent text-slate hover:border-slate hover:bg-white",
