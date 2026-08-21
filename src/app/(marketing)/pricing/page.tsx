@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Pill } from "@/components/marketing/pill";
 import { Reveal } from "@/components/marketing/motion";
 import { SectionHeading } from "@/components/marketing/sections";
-import { ADD_ONS, TIERS } from "@/lib/marketing/pricing";
+import { TIERS } from "@/lib/marketing/pricing";
 import { PricingCalculator } from "./calculator";
 
 export const metadata: Metadata = {
@@ -103,32 +103,6 @@ export default function PricingPage() {
                       ),
                     )}
                   </ul>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Add-ons */}
-      <section className="border-y border-sand-line bg-sand-deep px-4 py-16">
-        <div className="container-page">
-          <Reveal>
-            <h2 className="text-h2 text-slate">Add-ons</h2>
-          </Reveal>
-          <div className="mt-9 grid gap-5 md:grid-cols-3">
-            {ADD_ONS.map((a, i) => (
-              <Reveal key={a.name} as="div" delay={i * 60}>
-                <div className="h-full rounded-2xl border border-sand-line bg-sand p-6">
-                  <h3 className="text-[1.0625rem] font-medium text-slate">
-                    {a.name}
-                  </h3>
-                  <p className="mt-1.5 text-[0.875rem] font-medium text-success-text">
-                    {a.price}
-                  </p>
-                  <p className="mt-3 text-[0.875rem] leading-relaxed text-slate-muted">
-                    {a.detail}
-                  </p>
                 </div>
               </Reveal>
             ))}
