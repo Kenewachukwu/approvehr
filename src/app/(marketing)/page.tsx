@@ -90,11 +90,6 @@ export default function HomePage() {
               <p className="mx-auto mt-7 max-w-2xl text-lead text-slate-muted">
                 Employee records, payroll, recruitment, leave and approvals —
                 one platform, one employee record, no re-typing.
-                <span className="block pt-3 text-slate">
-                  PAYE, pension and NHF calculated to current Nigerian law.
-                  Every schedule your state IRS and PFAs expect, generated
-                  automatically.
-                </span>
               </p>
             </Reveal>
 
