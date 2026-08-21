@@ -10,7 +10,7 @@
    No monospace family is defined anywhere in this system, by design.
 
    Brand mapping — both values are taken from the ApproveHR logo:
-     accent   #2b3990  the wordmark indigo. 10.1:1 on white, carries white.
+     accent   #273f90  the wordmark indigo. 9.6:1 on white, carries white.
      success  #8ac97d  the checkmark green. A fill that carries ink, never
                        text — "approved" is the product's core verb, so the
                        brand green is the approval colour rather than a
@@ -36,11 +36,11 @@
   /* ---- Accent. ApproveHR indigo. ------------------------------------- */
   /* Unlike a light accent, this one is dark enough to carry white text,
      so accent and accent-text are the same value.                       */
-  --color-accent: #2b3990; /* 10.1:1                                */
-  --color-accent-text: #2b3990; /* 10.1:1                             */
-  --color-accent-hover: #242f76;
-  --color-accent-soft: #f0f2f9;
-  --color-accent-line: #c8cfe8;
+  --color-accent: #273f90; /* 9.6:1                                 */
+  --color-accent-text: #273f90; /* 9.6:1                              */
+  --color-accent-hover: #1d3278;
+  --color-accent-soft: #eef1fb;
+  --color-accent-line: #c5cde9;
 
   /* ---- Semantic. Two tone: -text for copy, base for fills. ----------- */
   /* success base is the brand green: ink on it reads 8.6:1.             */
@@ -66,7 +66,7 @@
   --color-info-line: #c2ddef;
 
   /* ---- Categorical. Charts and pipeline stages only, never status. --- */
-  --color-cat-1: #2b3990;
+  --color-cat-1: #273f90;
   --color-cat-2: #12a374;
   --color-cat-3: #d99400;
   --color-cat-4: #7c5cd6;
@@ -312,8 +312,8 @@
 @utility grid-surface {
   background-color: var(--color-surface);
   background-image:
-    linear-gradient(to right, rgb(43 57 144 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(43 57 144 / 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgb(39 63 144 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(39 63 144 / 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -321,8 +321,8 @@
 @utility grid-fade {
   background-color: var(--color-surface);
   background-image:
-    linear-gradient(to right, rgb(43 57 144 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(43 57 144 / 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgb(39 63 144 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(39 63 144 / 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
@@ -334,8 +334,8 @@
 @utility sidebar-surface {
   background-color: var(--color-surface);
   background-image:
-    linear-gradient(180deg, rgb(43 57 144 / 0.03) 0%, rgb(43 57 144 / 0) 260px),
-    linear-gradient(to right, rgb(43 57 144 / 0.035) 1px, transparent 1px);
+    linear-gradient(180deg, rgb(39 63 144 / 0.03) 0%, rgb(39 63 144 / 0) 260px),
+    linear-gradient(to right, rgb(39 63 144 / 0.035) 1px, transparent 1px);
   background-size:
     100% 100%,
     32px 100%;
@@ -344,7 +344,7 @@
 /* Brand wash for empty states and onboarding moments. */
 @utility brand-wash {
   background-image:
-    radial-gradient(58% 68% at 12% 0%, rgb(43 57 144 / 0.09) 0%, transparent 62%),
+    radial-gradient(58% 68% at 12% 0%, rgb(39 63 144 / 0.09) 0%, transparent 62%),
     radial-gradient(48% 58% at 92% 8%, rgb(138 201 125 / 0.16) 0%, transparent 66%);
 }
 
