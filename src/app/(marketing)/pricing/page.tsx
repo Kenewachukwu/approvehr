@@ -222,9 +222,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Client logos */}
-      <ClientLogos />
-
       {/* Plan cards */}
       <section className="px-4 py-20">
         <div className="container-page">
@@ -284,6 +281,9 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+
+      {/* Client logos */}
+      <ClientLogos />
 
       {/* Feature comparison table */}
       <section className="px-4 py-16">
