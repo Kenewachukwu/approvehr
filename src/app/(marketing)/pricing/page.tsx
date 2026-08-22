@@ -201,18 +201,24 @@ export default function PricingPage() {
       <section className="px-4 pb-16 pt-16 sm:pt-24">
         <div className="container-page">
           <Reveal>
+            <div className="mx-auto mb-7 flex justify-center">
+              <div className="inline-flex items-center gap-2.5 rounded-full bg-success/15 px-5 py-2 text-[0.9375rem] font-bold text-success-text ring-1 ring-success/30">
+                <span className="size-2.5 rounded-full bg-success-strong" aria-hidden />
+                First month free &mdash; migration included, no card required
+              </div>
+            </div>
             <SectionHeading
               align="center"
               eyebrow="Pricing"
-              title="Priced per employee. Exact numbers in one conversation."
-              lead="We price by headcount — the rate drops as your team grows. Tell us your company size and we will walk you through exactly what it costs and what it replaces."
+              title="Start free. Pay from month two."
+              lead="Your first month on us — run your first payroll, onboard your full team, and we migrate your existing data at no cost. After that, pricing is per employee, per month."
             />
           </Reveal>
 
           <Reveal delay={100}>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <Pill href="/demo" variant="solid" size="lg" arrow>
-                Book a demo
+                Start free — book a demo
               </Pill>
               <Pill href="/demo" variant="quiet" size="lg">
                 Talk to sales
@@ -228,7 +234,7 @@ export default function PricingPage() {
           <Reveal>
             <h2 className="text-h2 text-slate">Find your plan</h2>
             <p className="mt-3 max-w-xl text-[0.9375rem] leading-relaxed text-slate-muted">
-              Four tiers, one price per head. Every plan includes onboarding support — no module fees bolted on later.
+              Four tiers, one price per head. Every plan starts with a free month and free migration — no module fees bolted on later.
             </p>
           </Reveal>
 
@@ -388,15 +394,19 @@ export default function PricingPage() {
         <div className="container-page">
           <Reveal>
             <div className="rounded-3xl bg-night px-8 py-16 text-center">
+              <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-success/20 px-4 py-1.5 text-[0.875rem] font-bold text-success ring-1 ring-success/30">
+                <span className="size-2 rounded-full bg-success" aria-hidden />
+                First month free &mdash; migration on us
+              </div>
               <h2 className="mx-auto max-w-2xl text-h1 text-white">
-                Tell us your headcount. We&apos;ll tell you the number.
+                Start free. We move your data. You pay from month two.
               </h2>
               <p className="mx-auto mt-5 max-w-lg text-[1.0625rem] leading-relaxed text-white/60">
-                No form that estimates it. One conversation with someone who knows the system, and you leave with an exact quote.
+                Book a demo on your own numbers. If it fits, we migrate your existing records and you run your first payroll at no cost.
               </p>
               <div className="mt-9 flex flex-wrap justify-center gap-3">
                 <Pill href="/demo" variant="solid" size="lg" arrow>
-                  Book a demo
+                  Start free — book a demo
                 </Pill>
               </div>
             </div>

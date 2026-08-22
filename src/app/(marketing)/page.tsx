@@ -74,10 +74,11 @@ export default function HomePage() {
       <section className="px-4 pb-20 pt-16 sm:pt-24">
         <div className="container-page">
           <div className="text-center">
-            <Reveal delay={40}>
-              <p className="text-[0.8125rem] font-medium uppercase tracking-[0.1em] text-slate-muted">
-                HR, payroll and recruitment
-              </p>
+            <Reveal delay={20}>
+              <div className="inline-flex items-center gap-2 rounded-full bg-success/15 px-4 py-1.5 text-[0.875rem] font-semibold text-success-text ring-1 ring-success/30">
+                <span className="size-2 rounded-full bg-success-strong" aria-hidden />
+                First month free &mdash; migration included
+              </div>
             </Reveal>
 
             <Reveal delay={60}>
@@ -96,15 +97,14 @@ export default function HomePage() {
             <Reveal delay={180}>
               <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
                 <Pill href="/demo" variant="solid" size="lg" arrow>
-                  Book a demo
+                  Start free — book a demo
                 </Pill>
                 <Pill href={heroCta.href} variant="quiet" size="lg">
                   {heroCta.label}
                 </Pill>
               </div>
               <p className="mt-4 text-[0.8125rem] text-slate-muted">
-                Thirty minutes on your own numbers. No card, no install, no
-                procurement step before you have decided anything.
+                Your first month and data migration are on us. No card required before you have decided anything.
               </p>
             </Reveal>
           </div>
@@ -316,15 +316,18 @@ export default function HomePage() {
                 <p className="mb-3 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-white/40">
                   Pricing
                 </p>
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-success/20 px-4 py-1.5 text-[0.8125rem] font-bold text-success ring-1 ring-success/30">
+                  <span className="size-2 rounded-full bg-success" aria-hidden />
+                  First month free + free migration
+                </div>
                 <h2 className="text-h1 text-white">
-                  Priced per employee, per month. In naira.
+                  Start free. Pay from month two.
                 </h2>
                 <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-white/60">
-                  The rate falls as your headcount rises. No implementation fee
-                  to start, no per-module upsell to process payroll properly.
+                  Your first month on us. We migrate your existing employee records and payroll history at no cost. Pricing after that is per employee, per month — the rate falls as your team grows.
                 </p>
-                <Pill href="/pricing" variant="solid" arrow className="mt-8">
-                  See the full pricing
+                <Pill href="/demo" variant="solid" arrow className="mt-8">
+                  Get started free
                 </Pill>
               </div>
 
@@ -361,17 +364,19 @@ export default function HomePage() {
         <div className="container-page">
           <Reveal>
             <div className="rounded-3xl border border-sand-line bg-white/60 px-8 py-16 text-center">
+              <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-success/15 px-4 py-1.5 text-[0.875rem] font-bold text-success-text ring-1 ring-success/30">
+                <span className="size-2 rounded-full bg-success-strong" aria-hidden />
+                First month free &mdash; migration included
+              </div>
               <h2 className="mx-auto max-w-3xl text-h1 text-slate">
-                See it work. Then decide.
+                Start free. We move your data. You pay from month two.
               </h2>
               <p className="mx-auto mt-5 max-w-xl text-lead text-slate-muted">
-                Thirty minutes on your own numbers. No slides, no discovery
-                call, no pressure. If it does not fit how you pay people, we
-                will tell you in the meeting.
+                Book a thirty-minute demo on your own numbers. If it fits, we migrate your records and run your first payroll at no cost.
               </p>
               <div className="mt-9 flex flex-wrap justify-center gap-3">
                 <Pill href="/demo" variant="solid" size="lg" arrow>
-                  Book a demo
+                  Start free — book a demo
                 </Pill>
                 <Pill href={closingCta.href} variant="quiet" size="lg">
                   {closingCta.label}
