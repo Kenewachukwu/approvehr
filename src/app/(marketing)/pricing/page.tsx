@@ -201,12 +201,6 @@ export default function PricingPage() {
       <section className="px-4 pb-16 pt-16 sm:pt-24">
         <div className="container-page">
           <Reveal>
-            <div className="mx-auto mb-7 flex justify-center">
-              <div className="inline-flex items-center gap-2.5 rounded-full bg-success/15 px-5 py-2 text-[0.9375rem] font-bold text-success-text ring-1 ring-success/30">
-                <span className="size-2.5 rounded-full bg-success-strong" aria-hidden />
-                First month free &mdash; migration included, no card required
-              </div>
-            </div>
             <SectionHeading
               align="center"
               eyebrow="Pricing"
@@ -394,10 +388,6 @@ export default function PricingPage() {
         <div className="container-page">
           <Reveal>
             <div className="rounded-3xl bg-night px-8 py-16 text-center">
-              <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-success/20 px-4 py-1.5 text-[0.875rem] font-bold text-success ring-1 ring-success/30">
-                <span className="size-2 rounded-full bg-success" aria-hidden />
-                First month free &mdash; migration on us
-              </div>
               <h2 className="mx-auto max-w-2xl text-h1 text-white">
                 Start free. We move your data. You pay from month two.
               </h2>
