@@ -74,13 +74,6 @@ export default function HomePage() {
       <section className="px-4 pb-20 pt-16 sm:pt-24">
         <div className="container-page">
           <div className="text-center">
-            <Reveal delay={20}>
-              <div className="inline-flex items-center gap-2 rounded-full bg-success/15 px-4 py-1.5 text-[0.875rem] font-semibold text-success-text ring-1 ring-success/30">
-                <span className="size-2 rounded-full bg-success-strong" aria-hidden />
-                First month free &mdash; migration included
-              </div>
-            </Reveal>
-
             <Reveal delay={60}>
               <h1 className="mx-auto mt-5 max-w-4xl text-mega text-slate">
                 All your HR and payroll, in one system.
@@ -364,10 +357,6 @@ export default function HomePage() {
         <div className="container-page">
           <Reveal>
             <div className="rounded-3xl border border-sand-line bg-white/60 px-8 py-16 text-center">
-              <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-success/15 px-4 py-1.5 text-[0.875rem] font-bold text-success-text ring-1 ring-success/30">
-                <span className="size-2 rounded-full bg-success-strong" aria-hidden />
-                First month free &mdash; migration included
-              </div>
               <h2 className="mx-auto max-w-3xl text-h1 text-slate">
                 Start free. We move your data. You pay from month two.
               </h2>
