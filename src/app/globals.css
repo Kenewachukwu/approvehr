@@ -10,7 +10,7 @@
    No monospace family is defined anywhere in this system, by design.
 
    Brand mapping — both values are taken from the ApproveHR logo:
-     accent   #2b3990  the wordmark indigo. 10.1:1 on white, carries white.
+     accent   #273f90  the wordmark indigo. 9.6:1 on white, carries white.
      success  #8ac97d  the checkmark green. A fill that carries ink, never
                        text — "approved" is the product's core verb, so the
                        brand green is the approval colour rather than a
@@ -22,14 +22,8 @@
   --color-ink: #0a1f2d; /* 17.1:1  Headings, primary text          */
   --color-ink-soft: #16334a; /* 11.4:1  Secondary headings         */
   --color-body: #4a5a68; /*  7.1:1  Body copy                      */
-  --color-muted: #586675; /*  5.9:1  Secondary text                */
-  /* Was #83929e at 3.2:1, on the reasoning that it was for icons and large
-     text only. It was not: it is used for 11px section headings and table
-     hints, which need 4.5:1. Darkened until it clears AA on every tinted
-     background it appears on, including bg-sunken and the callout tints.
-     The cost is a compressed bottom to the scale — muted 5.9 to faint 5.3 —
-     which is the arithmetic of fitting five text weights above 4.5:1. */
-  --color-faint: #616d76; /*  5.3:1  Tertiary text and icons        */
+  --color-muted: #64748b; /*  4.8:1  Secondary text                */
+  --color-faint: #83929e; /*  3.2:1  Large text and icons only     */
 
   --color-canvas: #f7f9fb;
   --color-surface: #ffffff;
@@ -42,11 +36,11 @@
   /* ---- Accent. ApproveHR indigo. ------------------------------------- */
   /* Unlike a light accent, this one is dark enough to carry white text,
      so accent and accent-text are the same value.                       */
-  --color-accent: #2b3990; /* 10.1:1                                */
-  --color-accent-text: #2b3990; /* 10.1:1                             */
-  --color-accent-hover: #242f76;
-  --color-accent-soft: #f0f2f9;
-  --color-accent-line: #c8cfe8;
+  --color-accent: #273f90; /* 9.6:1                                 */
+  --color-accent-text: #273f90; /* 9.6:1                              */
+  --color-accent-hover: #1d3278;
+  --color-accent-soft: #eef1fb;
+  --color-accent-line: #c5cde9;
 
   /* ---- Semantic. Two tone: -text for copy, base for fills. ----------- */
   /* success base is the brand green: ink on it reads 8.6:1.             */
@@ -72,7 +66,7 @@
   --color-info-line: #c2ddef;
 
   /* ---- Categorical. Charts and pipeline stages only, never status. --- */
-  --color-cat-1: #2b3990;
+  --color-cat-1: #273f90;
   --color-cat-2: #12a374;
   --color-cat-3: #d99400;
   --color-cat-4: #7c5cd6;
@@ -112,40 +106,10 @@
   --text-lead--line-height: 1.6;
   --text-lead--letter-spacing: -0.008em;
 
-  --text-eyebrow: 0.875rem;
+  --text-eyebrow: 0.8125rem;
   --text-eyebrow--line-height: 1.2;
   --text-eyebrow--letter-spacing: 0.08em;
   --text-eyebrow--font-weight: 600;
-
-  /* ---- Body scale ----------------------------------------------------
-   *
-   * There wasn't one. Headings had tokens; body text did not, so every screen
-   * reached for an arbitrary value and the app accumulated **1,413** of them
-   * across eight different sizes — including text at 8px, 9px, 10px and 11px.
-   *
-   * That is a problem for anybody and a wall for the people this product is
-   * sold to: the owner-manager of a Nigerian SME doing their own payroll is
-   * frequently over fifty, and presbyopia is near-universal past forty-five.
-   * WCAG 2.1 sets no absolute minimum in pixels, but 1.4.4 (Resize Text) and
-   * 1.4.12 (Text Spacing) both assume a sane starting point, and 16px is the
-   * long-standing baseline for body copy.
-   *
-   * So: four steps, and `--text-meta` is the floor. Nothing in the app renders
-   * smaller than 14px. If a design seems to need 11px, the design is wrong —
-   * either it is showing something that does not belong on that screen, or the
-   * container needs to be bigger.
-   */
-  --text-body-lg: 1.0625rem; /* 17px — a lead-in inside a card         */
-  --text-body-lg--line-height: 1.55;
-
-  --text-body: 1rem; /* 16px — the baseline for anything read   */
-  --text-body--line-height: 1.6;
-
-  --text-body-sm: 0.9375rem; /* 15px — dense rows, table cells         */
-  --text-body-sm--line-height: 1.5;
-
-  --text-meta: 0.875rem; /* 14px — the floor. Labels, hints, badges */
-  --text-meta--line-height: 1.45;
 
   /* ---- Radius -------------------------------------------------------- */
   --radius-xs: 4px;
@@ -341,39 +305,47 @@
 }
 
 /* --------------------------------------------------------------------------
-   Flat surfaces.
-
-   These four utilities used to draw an ambient grid and a pair of soft
-   gradients — a 32px indigo lattice behind page headers, a fall of colour down
-   the sidebar, and a radial brand wash on empty states.
-
-   They are now plain fills, and the reason is readability. A hairline lattice
-   at 4% opacity is invisible against a card and clearly visible *through* small
-   text, which puts a varying background luminance behind every glyph. That does
-   two things: it makes the type feel unsteady to read, and it makes the real
-   contrast ratio of any text sitting on it unknowable — the measured figure
-   depends on whether a grid line happens to fall behind a stroke. Contrast you
-   cannot measure is contrast you cannot promise.
-
-   The utilities are kept rather than deleted so no call site has to change and
-   the intent stays legible in a diff. The marketing surface is untouched: its
-   type is large, its ground is a solid sand fill, and it never had the grid.
+   Ambient grid. A hairline lattice at 4% of the accent hue — present enough
+   to give empty regions structure, faint enough never to compete with data.
    -------------------------------------------------------------------------- */
 
 @utility grid-surface {
   background-color: var(--color-surface);
+  background-image:
+    linear-gradient(to right, rgb(39 63 144 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(39 63 144 / 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
+/* Grid that dissolves downward. Sits behind page headers and hero bands. */
 @utility grid-fade {
   background-color: var(--color-surface);
+  background-image:
+    linear-gradient(to right, rgb(39 63 144 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(39 63 144 / 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
 }
 
+/* The sidebar ground. A near-white surface with a single vertical hairline
+   rhythm and the faintest indigo fall from the top — enough to separate the
+   navigation from the canvas without turning it into a coloured slab. */
 @utility sidebar-surface {
   background-color: var(--color-surface);
+  background-image:
+    linear-gradient(180deg, rgb(39 63 144 / 0.03) 0%, rgb(39 63 144 / 0) 260px),
+    linear-gradient(to right, rgb(39 63 144 / 0.035) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    32px 100%;
 }
 
+/* Brand wash for empty states and onboarding moments. */
 @utility brand-wash {
-  background-color: var(--color-accent-soft);
+  background-image:
+    radial-gradient(58% 68% at 12% 0%, rgb(39 63 144 / 0.09) 0%, transparent 62%),
+    radial-gradient(48% 58% at 92% 8%, rgb(138 201 125 / 0.16) 0%, transparent 66%);
 }
 
 /* Score bars inside a hovered card grow to their target width. The width is
@@ -451,35 +423,6 @@
   }
 }
 
-/* Side panels. Drawer asked for `enrich-rise` — a name carried over from the
-   sibling project this system was adapted from, and a keyframe that has never
-   existed here. An unknown animation-name is not an error in CSS, it is simply
-   ignored, so the panel had no entrance at all and both sides shared the same
-   non-animation. The travel is short on purpose: the panel is already anchored
-   to the edge it comes from, so a full-width slide reads as a longer wait
-   rather than as more motion. */
-@keyframes ahr-slide-from-right {
-  from {
-    opacity: 0;
-    transform: translateX(24px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes ahr-slide-from-left {
-  from {
-    opacity: 0;
-    transform: translateX(-24px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @utility animate-rise {
   animation: ahr-rise 0.5s var(--ease-out-soft) both;
 }
@@ -495,14 +438,6 @@
 @utility animate-shimmer {
   background-size: 200% 100%;
   animation: ahr-shimmer 1.4s linear infinite;
-}
-
-@utility animate-slide-from-right {
-  animation: ahr-slide-from-right 0.24s var(--ease-out-soft) both;
-}
-
-@utility animate-slide-from-left {
-  animation: ahr-slide-from-left 0.24s var(--ease-out-soft) both;
 }
 
 /* --------------------------------------------------------------------------
@@ -585,70 +520,12 @@
    Print. Payslips, contracts and compliance exports get printed.
    ========================================================================== */
 
-/*
- * Printing.
- *
- * One screen in the product is genuinely printed rather than viewed: a payslip.
- * Somebody keeps it, gives it to a landlord, or attaches it to a visa
- * application, so what comes out of the printer is a document the company is
- * putting its name on.
- *
- * Before this it came out with the application around it — the hamburger, the
- * logo, the organisation switcher, the notification bell, and the signed-in
- * person's name and role badge sat above a payslip belonging to somebody else
- * entirely. That last part is the real problem rather than an aesthetic one: a
- * payslip for Adaeze Okonkwo printed with "Tunde Bakare, Head of Finance,
- * Owner" across the top invites exactly the wrong conclusion about whose pay it
- * records.
- *
- * `.no-print` already existed and the payslip screen used it on its own
- * controls. What nothing had marked was the shell itself.
- */
 @media print {
-  /* Ink is expensive and a tint that renders as grey mush helps nobody. */
   body {
     background: #ffffff;
   }
 
   .no-print {
     display: none !important;
-  }
-
-  /*
-   * A payslip is one page. It was spilling onto two, which for a document
-   * somebody files is the difference between one sheet and a staple.
-   */
-  @page {
-    margin: 12mm;
-  }
-
-  /* The browser's own header and footer are the browser's to draw; nothing here
-     can remove the date, the page title or the localhost URL. That is a setting
-     in the print dialogue, and worth turning off before saving a payslip a
-     third party will read. */
-
-  /* Cards stop being cards. On paper a shadow is noise and a tint is grey. */
-  [class*="shadow"] {
-    box-shadow: none !important;
-  }
-
-  /* Nothing a reader needs should straddle a page break. */
-  h1,
-  h2,
-  h3,
-  h4 {
-    break-after: avoid-page;
-  }
-
-  tr,
-  li,
-  dl > div {
-    break-inside: avoid-page;
-  }
-
-  /* A link's href is useful on paper only when it is not an app route nobody
-     can type. Left alone deliberately rather than expanded into brackets. */
-  a {
-    text-decoration: none !important;
   }
 }

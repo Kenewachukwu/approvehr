@@ -5,33 +5,22 @@ import { cn } from "@/lib/cn";
 /*
  * One button language for the whole marketing site.
  *
- *   solid    ApproveHR blue fill, white label — 10.1:1. The single primary
- *            action on any given screen.
- *
- *            This was a solid green fill carrying an ink label, on the argument
- *            that green is the approval colour so the button starting a
- *            relationship should wear it. Nice idea, wrong outcome: the loudest
- *            thing on every marketing page was not the brand's own colour, and
- *            it did not match the primary button inside the product, so the site
- *            and the app looked like two products. Blue is the brand; the brand
- *            gets the primary. It also carries white text, which the green
- *            could not — 8.6:1 with ink was the best that fill could do.
- *   green    the old solid, kept as a secondary for a positive aside.
- *   dark     near-black fill, white label — 17.9:1. Secondary.
+ *   solid    brand blue fill, white label — 9.6:1. The single primary action
+ *            on any given screen.
+ *   dark     near-black fill, white label — 17.9:1. Secondary, and the default
+ *            inside light washed cards where green would fight the tint.
  *   quiet    hairline outline on sand. Tertiary.
  *   text     inline link with a travelling arrow. Used inside cards.
  *
  * All four share the same lift on hover so the site has one motion signature.
  */
 
-type Variant = "solid" | "green" | "dark" | "quiet" | "text";
+type Variant = "solid" | "dark" | "quiet" | "text";
 type Size = "md" | "lg";
 
 const VARIANTS: Record<Variant, string> = {
   solid:
-    "bg-accent text-white hover:bg-accent-hover shadow-[0_1px_2px_rgb(20_18_15/0.14)]",
-  green:
-    "bg-success text-slate hover:bg-success-strong hover:text-white shadow-[0_1px_2px_rgb(20_18_15/0.10)]",
+    "bg-accent text-white hover:bg-accent-hover shadow-[0_1px_2px_rgb(20_18_15/0.10)]",
   dark: "bg-slate text-white hover:bg-slate-soft shadow-[0_1px_2px_rgb(20_18_15/0.14)]",
   quiet:
     "border border-sand-line bg-transparent text-slate hover:border-slate hover:bg-white",
@@ -39,8 +28,8 @@ const VARIANTS: Record<Variant, string> = {
 };
 
 const SIZES: Record<Size, string> = {
-  md: "h-10 px-5 text-body-sm",
-  lg: "h-12 px-6 text-body",
+  md: "h-10 px-5 text-[0.875rem]",
+  lg: "h-12 px-6 text-[0.9375rem]",
 };
 
 const BASE =
@@ -136,7 +125,7 @@ export function LearnMore({
     <Link
       href={href}
       className={cn(
-        "group/more inline-flex items-center gap-2 text-body-sm font-medium text-slate",
+        "group/more inline-flex items-center gap-2 text-[0.875rem] font-medium text-slate",
         "transition-colors hover:text-slate-muted",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate",
         className,
