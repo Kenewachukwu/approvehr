@@ -309,10 +309,6 @@ export default function HomePage() {
                 <p className="mb-3 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-white/40">
                   Pricing
                 </p>
-                <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-success/20 px-4 py-1.5 text-[0.8125rem] font-bold text-success ring-1 ring-success/30">
-                  <span className="size-2 rounded-full bg-success" aria-hidden />
-                  First month free + free migration
-                </div>
                 <h2 className="text-h1 text-white">
                   Start free. Pay from month two.
                 </h2>
