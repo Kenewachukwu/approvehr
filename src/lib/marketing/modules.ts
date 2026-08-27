@@ -40,6 +40,16 @@ export type Wash = "indigo" | "green" | "amber" | "blue" | "violet" | "rose";
 
 export type ModuleDef = {
   id: ModuleId;
+  /**
+   * The module's name, and the only place it is written.
+   *
+   * It is also the heading the **signed-in app's sidebar** files its screens
+   * under: `MODULE_ITEMS` in components/portal/nav.tsx imports `MODULES` and
+   * reads this, keyed by `id`. So renaming a module here renames it in the
+   * product too, which is the point — the sidebar used to say Hiring / People /
+   * Pay / Grow, four headings against these six names, and a customer who
+   * bought "Time & Leave" signed in to find no such thing.
+   */
   label: string;
   /** One line, used on cards and in the platform rail. */
   headline: string;
@@ -122,9 +132,9 @@ export const MODULES: ModuleDef[] = [
   {
     id: "hiring",
     label: "Recruitment",
-    headline: "From requisition to signed offer",
+    headline: "From job ad to signed offer",
     blurb:
-      "Post a role, track every applicant through a pipeline you configure, and collect structured scorecards. An accepted offer becomes an employee record without retyping anything.",
+      "Post a role, track every application, and collect structured data. An accepted offer becomes an employee record without retyping anything.",
     wash: "amber",
     capabilities: [
       {
@@ -138,14 +148,9 @@ export const MODULES: ModuleDef[] = [
           "Sourcing, shortlisting, screening, interview, selection. Turn off the stages a junior role does not need.",
       },
       {
-        title: "Knockout screening",
+        title: "Screening from your website",
         detail:
-          "Ask what disqualifies early — right to work, notice period, salary expectation — and see it on the candidate card.",
-      },
-      {
-        title: "Interview scorecards",
-        detail:
-          "Interviewers rate agreed competencies and recommend. Nobody leaves the interview stage until every scorecard is in.",
+          "Knockout questions and structured scorecards happen on the same application — no separate spreadsheet.",
       },
       {
         title: "Offers",
@@ -157,7 +162,7 @@ export const MODULES: ModuleDef[] = [
   {
     id: "time",
     label: "Time & Leave",
-    headline: "Attendance that agrees with payroll",
+    headline: "Attendance that syncs with payroll",
     blurb:
       "Clock in from the web or a phone. Leave accrues on your own policy, and what attendance records is what payroll pays.",
     wash: "blue",
@@ -193,13 +198,13 @@ export const MODULES: ModuleDef[] = [
   {
     id: "performance",
     label: "Performance",
-    headline: "Reviews you can defend",
+    headline: "Trackable objectives and reviews",
     blurb:
       "Set objectives that ladder up to company goals and run review cycles on a schedule. Every rating carries the evidence behind it.",
     wash: "violet",
     capabilities: [
       {
-        title: "Goals that cascade",
+        title: "Clear goal tracking and supervision",
         detail:
           "Company goals flow down to teams and individuals, so any objective traces back to what it serves.",
       },
@@ -209,9 +214,9 @@ export const MODULES: ModuleDef[] = [
           "Self, manager and peer review on a schedule you set, with reminders that go out without you chasing.",
       },
       {
-        title: "Competency scoring",
+        title: "KPI measuring",
         detail:
-          "Define the competencies that matter per role and weight them. Scores stay comparable across a department.",
+          "Define the KPIs that matter per role and weight them. Scores stay comparable across a department.",
       },
       {
         title: "Calibration",

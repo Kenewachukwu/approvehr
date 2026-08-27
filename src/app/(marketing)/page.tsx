@@ -17,7 +17,7 @@ import {
   StatutoryMockup,
 } from "@/components/marketing/mockups";
 import { quote } from "@/lib/marketing/pricing";
-import { liveProductCta } from "@/lib/marketing/links";
+import { liveProductCta, newTabIfApp } from "@/lib/marketing/links";
 
 /* Secondary CTAs. Both promise a running product, so both degrade to something
    that exists when the app isn't deployed alongside the site. */
@@ -46,7 +46,7 @@ const SHAPES = [
     src: "/photos/site-team.jpg",
     alt: "A site team in hi-vis reviewing drawings together",
     title: "Sites and shifts",
-    body: "Rotating crews, overtime, and a working month that is not 22 days. Unpaid leave prorates against your roster, not an office calendar.",
+    body: "Rotating crews, overtime, and a working month that is adjustable. Unpaid leave prorates against your roster, not an office calendar.",
     setting: "Working month: configurable",
   },
   {
@@ -76,14 +76,14 @@ export default function HomePage() {
           <div className="text-center">
             <Reveal delay={60}>
               <h1 className="mx-auto mt-5 max-w-4xl text-mega text-slate">
-                All your HR and payroll, in one system.
+                A smarter way to manage staff.
               </h1>
             </Reveal>
 
             <Reveal delay={120}>
               <p className="mx-auto mt-7 max-w-2xl text-lead text-slate-muted">
                 Employee records, payroll, recruitment, leave and approvals —
-                one platform, one employee record, no re-typing.
+                managed in one platform.
               </p>
             </Reveal>
 
@@ -92,11 +92,16 @@ export default function HomePage() {
                 <Pill href="/demo" variant="solid" size="lg" arrow>
                   Start free — book a demo
                 </Pill>
-                <Pill href={heroCta.href} variant="quiet" size="lg">
+                <Pill
+                  href={heroCta.href}
+                  variant="quiet"
+                  size="lg"
+                  {...newTabIfApp(heroCta.href)}
+                >
                   {heroCta.label}
                 </Pill>
               </div>
-              <p className="mt-4 text-[0.8125rem] text-slate-muted">
+              <p className="mt-4 text-meta text-slate-muted">
                 Your first month and data migration are on us. No card required before you have decided anything.
               </p>
             </Reveal>
@@ -109,14 +114,14 @@ export default function HomePage() {
                 {[
                   {
                     title: "Approval before money moves",
-                    body: "Every payroll is prepared, reviewed and approved by named people. The payment file only exists after approval.",
+                    body: "Every payroll is prepared, reviewed and approved by the appropriate office. The payment file only exists after approval.",
                   },
                   {
-                    title: "Deductions you do not maintain",
+                    title: "Automated deductions",
                     body: "PAYE bands, 8% and 10% pension, NHF. We track the changes so you do not have to.",
                   },
                   {
-                    title: "Schedules, not spreadsheets",
+                    title: "Auto-remittance schedules",
                     body: "Every remittance schedule is generated automatically, split by PFA and by state.",
                   },
                 ].map((item) => (
@@ -132,10 +137,10 @@ export default function HomePage() {
                       />
                     </span>
                     <div>
-                      <h3 className="text-[0.9375rem] font-medium text-slate">
+                      <h3 className="text-body font-medium text-slate">
                         {item.title}
                       </h3>
-                      <p className="mt-1 text-[0.875rem] leading-relaxed text-slate-muted">
+                      <p className="mt-1 text-body-sm leading-relaxed text-slate-muted">
                         {item.body}
                       </p>
                     </div>
@@ -153,8 +158,8 @@ export default function HomePage() {
           <Reveal>
             <SectionHeading
               eyebrow="Built for how your company runs"
-              title="One payroll. Three types of company."
-              lead="A site crew on rotating shifts. A head office on salary. A contractor on withholding tax. Your working month, salary structure and pensionable components are settings you control — not assumptions we make."
+              title="One payroll. Three company structures."
+              lead="A site crew on rotating shifts. A head office on salary. A contractor on withholding tax. Your working month, salary structure and pensionable components are easy settings you can control."
             />
           </Reveal>
 
@@ -173,10 +178,10 @@ export default function HomePage() {
                   </div>
                   <div className="p-6">
                     <h3 className="text-h4 text-slate">{shape.title}</h3>
-                    <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-slate-muted">
+                    <p className="mt-2.5 text-body leading-relaxed text-slate-muted">
                       {shape.body}
                     </p>
-                    <p className="mt-4 inline-flex rounded-full bg-white px-3 py-1 text-[0.75rem] font-medium text-slate-soft">
+                    <p className="mt-4 inline-flex rounded-full bg-white px-3 py-1 text-meta font-medium text-slate-soft">
                       {shape.setting}
                     </p>
                   </div>
@@ -220,7 +225,7 @@ export default function HomePage() {
           <Reveal>
             <SectionHeading
               eyebrow="Statutory compliance"
-              title="Global HR tools stop at the salary."
+              title="Most global HR tools stop at salary."
               lead="They store what someone earns. Then the real work starts — PAYE split by state, pension split by PFA, NHF, NSITF — and it lands back on your finance lead, a spreadsheet and a consultant on retainer. That is the part we built first."
             />
             <ul className="mt-9 flex flex-col gap-4">
@@ -239,7 +244,7 @@ export default function HomePage() {
                       strokeWidth={3}
                     />
                   </span>
-                  <span className="text-[0.9375rem] leading-relaxed text-slate-soft">
+                  <span className="text-body leading-relaxed text-slate-soft">
                     {line}
                   </span>
                 </li>
@@ -279,12 +284,12 @@ export default function HomePage() {
               {
                 value: <CountUp to={3} />,
                 label:
-                  "Named approvers before a payment file exists. Prepared, reviewed, released — each step timestamped.",
+                  "A named office approves before a payment file exists. Prepared, reviewed, released — each step timestamped.",
               },
             ].map((item, i) => (
               <Reveal key={i} as="div" delay={i * 70}>
                 <dt className="text-mega text-slate">{item.value}</dt>
-                <dd className="mt-3 text-[0.9375rem] leading-relaxed text-slate-muted">
+                <dd className="mt-3 text-body leading-relaxed text-slate-muted">
                   {item.label}
                 </dd>
               </Reveal>
@@ -292,7 +297,7 @@ export default function HomePage() {
           </dl>
 
           <Reveal delay={220}>
-            <p className="mt-10 max-w-2xl text-[0.8125rem] leading-relaxed text-slate-muted">
+            <p className="mt-10 max-w-2xl text-meta leading-relaxed text-slate-muted">
               Figures describe the worked example above, not a customer average.
               We are pre-launch and will not quote results we have not earned.
             </p>
@@ -306,13 +311,13 @@ export default function HomePage() {
           <Reveal>
             <div className="grid gap-10 rounded-3xl bg-night p-10 lg:grid-cols-2 lg:items-center lg:p-14">
               <div>
-                <p className="mb-3 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-white/40">
+                <p className="mb-3 text-meta font-semibold uppercase tracking-[0.1em] text-white/40">
                   Pricing
                 </p>
                 <h2 className="text-h1 text-white">
                   Start free. Pay from month two.
                 </h2>
-                <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-white/60">
+                <p className="mt-5 max-w-md text-body leading-relaxed text-white/60">
                   Your first month on us. We migrate your existing employee records and payroll history at no cost. Pricing after that is per employee, per month — the rate falls as your team grows.
                 </p>
                 <Pill href="/demo" variant="solid" arrow className="mt-8">
@@ -321,18 +326,18 @@ export default function HomePage() {
               </div>
 
               <div className="rounded-2xl border border-night-line p-7">
-                <p className="text-[0.8125rem] text-white/50">
+                <p className="text-meta text-white/50">
                   A 50-person company on Growth
                 </p>
                 <p className="mt-3 text-[2.75rem] font-medium leading-none tracking-tight text-white">
                   ₦{fifty.monthly!.toLocaleString("en-NG")}
                 </p>
-                <p className="mt-2 text-[0.8125rem] text-white/50">
+                <p className="mt-2 text-meta text-white/50">
                   per month · ₦{fifty.tier.pepm!.toLocaleString("en-NG")} per
                   employee
                 </p>
                 <div className="mt-6 border-t border-night-line pt-5">
-                  <p className="text-[0.8125rem] text-white/60">
+                  <p className="text-meta text-white/60">
                     Paid annually you save{" "}
                     <span className="font-medium text-success">
                       ₦{fifty.annualSaving!.toLocaleString("en-NG")}
@@ -363,7 +368,12 @@ export default function HomePage() {
                 <Pill href="/demo" variant="solid" size="lg" arrow>
                   Start free — book a demo
                 </Pill>
-                <Pill href={closingCta.href} variant="quiet" size="lg">
+                <Pill
+                  href={closingCta.href}
+                  variant="quiet"
+                  size="lg"
+                  {...newTabIfApp(closingCta.href)}
+                >
                   {closingCta.label}
                 </Pill>
               </div>

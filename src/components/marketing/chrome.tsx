@@ -6,7 +6,7 @@ import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { Logo, LogoMark } from "@/components/brand/logo";
 import { MODULES } from "@/lib/marketing/modules";
-import { appNavLinks, internalNavLinks } from "@/lib/marketing/links";
+import { appNavLinks, internalNavLinks, newTabIfApp } from "@/lib/marketing/links";
 import { LEGAL_LINKS } from "@/lib/marketing/legal";
 import { Pill } from "./pill";
 
@@ -21,13 +21,13 @@ export function AnnouncementBar() {
 
   return (
     <div className="relative bg-accent px-4 py-2.5 text-center text-white">
-      <p className="inline text-[0.875rem] font-medium">
+      <p className="inline text-body-sm font-medium">
         <span className="font-bold">First month free. Migration on us.</span>
         {" "}Start with your full team, move your data, pay nothing until month two.
       </p>
       <Link
         href="/demo"
-        className="ml-3 inline-flex items-center gap-1 text-[0.875rem] font-semibold underline underline-offset-2 hover:no-underline"
+        className="ml-3 inline-flex items-center gap-1 text-body-sm font-semibold underline underline-offset-2 hover:no-underline"
       >
         Book a demo <ArrowRight className="size-3.5" aria-hidden />
       </Link>
@@ -100,7 +100,7 @@ export function MarketingNav() {
             <button
               aria-expanded={productOpen}
               onClick={() => setProductOpen((v) => !v)}
-              className="flex items-center gap-1 rounded-full px-3 py-2 text-[0.875rem] text-slate-soft transition-colors hover:text-slate"
+              className="flex items-center gap-1 rounded-full px-3 py-2 text-body-sm text-slate-soft transition-colors hover:text-slate"
             >
               Product
               <ChevronDown
@@ -122,10 +122,10 @@ export function MarketingNav() {
                       onClick={() => setProductOpen(false)}
                       className="rounded-xl px-3 py-2.5 transition-colors hover:bg-sand"
                     >
-                      <span className="block text-[0.875rem] font-medium text-slate">
+                      <span className="block text-body-sm font-medium text-slate">
                         {m.label}
                       </span>
-                      <span className="mt-0.5 block text-[0.75rem] leading-snug text-slate-muted">
+                      <span className="mt-0.5 block text-meta leading-snug text-slate-muted">
                         {m.headline}
                       </span>
                     </Link>
@@ -137,7 +137,7 @@ export function MarketingNav() {
 
           <Link
             href="/pricing"
-            className="rounded-full px-3 py-2 text-[0.875rem] text-slate-soft transition-colors hover:text-slate"
+            className="rounded-full px-3 py-2 text-body-sm text-slate-soft transition-colors hover:text-slate"
           >
             Pricing
           </Link>
@@ -147,7 +147,8 @@ export function MarketingNav() {
               <Link
                 key={label}
                 href={href}
-                className="rounded-full px-3 py-2 text-[0.875rem] text-slate-soft transition-colors hover:text-slate"
+                {...newTabIfApp(href)}
+                className="rounded-full px-3 py-2 text-body-sm text-slate-soft transition-colors hover:text-slate"
               >
                 {label}
               </Link>
@@ -161,7 +162,8 @@ export function MarketingNav() {
               <Link
                 key={label}
                 href={href}
-                className="hidden rounded-full px-3 py-2 text-[0.875rem] text-slate-soft transition-colors hover:text-slate sm:block"
+                {...newTabIfApp(href)}
+                className="hidden rounded-full px-3 py-2 text-body-sm text-slate-soft transition-colors hover:text-slate sm:block"
               >
                 {label}
               </Link>
@@ -188,7 +190,7 @@ export function MarketingNav() {
       {/* Mobile sheet */}
       {open && (
         <div className="animate-scale-in mx-auto mt-2 max-w-5xl rounded-2xl bg-white p-3 shadow-[0_16px_40px_-12px_rgb(20_18_15/0.22)] lg:hidden">
-          <p className="px-3 pb-1.5 pt-2 text-[0.6875rem] uppercase tracking-[0.08em] text-slate-muted">
+          <p className="px-3 pb-1.5 pt-2 text-meta uppercase tracking-[0.08em] text-slate-muted">
             Product
           </p>
           {MODULES.map((m) => (
@@ -196,7 +198,7 @@ export function MarketingNav() {
               key={m.id}
               href={`/product/${m.id}`}
               onClick={() => setOpen(false)}
-              className="block rounded-xl px-3 py-2 text-[0.9375rem] text-slate transition-colors hover:bg-sand"
+              className="block rounded-xl px-3 py-2 text-body text-slate transition-colors hover:bg-sand"
             >
               {m.label}
             </Link>
@@ -207,7 +209,8 @@ export function MarketingNav() {
                 key={i}
                 href={href}
                 onClick={() => setOpen(false)}
-                className="block rounded-xl px-3 py-2 text-[0.9375rem] text-slate transition-colors hover:bg-sand"
+                {...newTabIfApp(href)}
+                className="block rounded-xl px-3 py-2 text-body text-slate transition-colors hover:bg-sand"
               >
                 {label}
               </Link>
@@ -253,7 +256,7 @@ export function MarketingFooter() {
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
             <Logo size={24} className="text-slate" />
-            <p className="mt-4 max-w-xs text-[0.875rem] leading-relaxed text-slate-muted">
+            <p className="mt-4 max-w-xs text-body-sm leading-relaxed text-slate-muted">
               HR, payroll and hiring for Nigerian companies. Built around the
               statutory obligations you already have.
             </p>
@@ -261,7 +264,7 @@ export function MarketingFooter() {
 
           {FOOTER_LINKS.map((group) => (
             <div key={group.heading}>
-              <h3 className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-slate-muted">
+              <h3 className="text-meta font-semibold uppercase tracking-[0.08em] text-slate-muted">
                 {group.heading}
               </h3>
               <ul className="mt-4 flex flex-col gap-2.5">
@@ -269,7 +272,8 @@ export function MarketingFooter() {
                   <li key={label}>
                     <Link
                       href={href}
-                      className="text-[0.875rem] text-slate-soft transition-colors hover:text-slate"
+                      {...newTabIfApp(href)}
+                      className="text-body-sm text-slate-soft transition-colors hover:text-slate"
                     >
                       {label}
                     </Link>
@@ -283,12 +287,12 @@ export function MarketingFooter() {
         <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-sand-line pt-6">
           <div className="flex items-center gap-2.5">
             <LogoMark size={18} className="text-slate" />
-            <p className="text-[0.75rem] text-slate-muted">
+            <p className="text-meta text-slate-muted">
               © {new Date().getFullYear()} ApproveHR, a Schull Technologies
               company. Lagos, Nigeria.
             </p>
           </div>
-          <p className="text-[0.75rem] text-slate-muted">
+          <p className="text-meta text-slate-muted">
             Registered under the Nigeria Data Protection Act 2023.
           </p>
         </div>

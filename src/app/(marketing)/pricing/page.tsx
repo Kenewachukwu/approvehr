@@ -227,7 +227,7 @@ export default function PricingPage() {
         <div className="container-page">
           <Reveal>
             <h2 className="text-h2 text-slate">Find your plan</h2>
-            <p className="mt-3 max-w-xl text-[0.9375rem] leading-relaxed text-slate-muted">
+            <p className="mt-3 max-w-xl text-body-sm leading-relaxed text-slate-muted">
               Four tiers, one price per head. Every plan starts with a free month and free migration — no module fees bolted on later.
             </p>
           </Reveal>
@@ -244,13 +244,13 @@ export default function PricingPage() {
                   )}
                 >
                   {plan.featured && (
-                    <span className="mb-3 self-start rounded-full bg-accent px-2.5 py-0.5 text-[0.7rem] font-semibold uppercase tracking-wide text-white">
+                    <span className="mb-3 self-start rounded-full bg-accent px-2.5 py-0.5 text-meta font-semibold uppercase tracking-wide text-white">
                       Most popular
                     </span>
                   )}
                   <h3 className="text-h4 text-slate">{plan.name}</h3>
-                  <p className="mt-0.5 text-[0.8125rem] text-slate-muted">{plan.band}</p>
-                  <p className="mt-4 text-[0.875rem] leading-relaxed text-slate-soft">
+                  <p className="mt-0.5 text-meta text-slate-muted">{plan.band}</p>
+                  <p className="mt-4 text-meta leading-relaxed text-slate-soft">
                     {plan.tagline}
                   </p>
 
@@ -260,7 +260,7 @@ export default function PricingPage() {
                         <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-success">
                           <Check className="size-2.5 text-slate" strokeWidth={3} aria-hidden />
                         </span>
-                        <span className="text-[0.8125rem] leading-snug text-slate-soft">{f}</span>
+                        <span className="text-meta leading-snug text-slate-soft">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -290,23 +290,23 @@ export default function PricingPage() {
         <div className="container-page">
           <Reveal>
             <h2 className="text-h2 text-slate">Compare plans</h2>
-            <p className="mt-3 max-w-xl text-[0.9375rem] leading-relaxed text-slate-muted">
+            <p className="mt-3 max-w-xl text-body-sm leading-relaxed text-slate-muted">
               Every feature, by module. Higher tiers carry everything below them.
             </p>
           </Reveal>
 
           <Reveal delay={80}>
             <div className="mt-10 overflow-x-auto rounded-2xl border border-sand-line bg-white/70">
-              <table className="w-full min-w-[640px] border-collapse text-[0.875rem]">
+              <table className="w-full min-w-[640px] border-collapse text-meta">
                 <thead>
                   <tr className="border-b border-sand-line">
-                    <th className="py-4 pl-6 pr-4 text-left text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-slate-muted">
+                    <th className="py-4 pl-6 pr-4 text-left text-meta font-semibold uppercase tracking-[0.08em] text-slate-muted">
                       Feature
                     </th>
                     {planNames.map((name) => (
                       <th
                         key={name}
-                        className="px-4 py-4 text-center text-[0.8125rem] font-semibold text-slate"
+                        className="px-4 py-4 text-center text-meta font-semibold text-slate"
                       >
                         {name}
                       </th>
@@ -320,7 +320,7 @@ export default function PricingPage() {
                       <tr key={`section-${si}`} className="border-t border-sand-line bg-sand/60">
                         <td
                           colSpan={5}
-                          className="py-2.5 pl-6 pr-4 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-slate"
+                          className="py-2.5 pl-6 pr-4 text-meta font-semibold uppercase tracking-[0.08em] text-slate"
                         >
                           {section.module}
                         </td>
@@ -372,8 +372,8 @@ export default function PricingPage() {
             <dl className="flex flex-col divide-y divide-sand-line border-t border-sand-line">
               {FAQ.map((item) => (
                 <div key={item.q} className="py-6">
-                  <dt className="text-[1.0625rem] font-medium text-slate">{item.q}</dt>
-                  <dd className="mt-2.5 text-[0.9375rem] leading-relaxed text-slate-muted">
+                  <dt className="text-body-lg font-medium text-slate">{item.q}</dt>
+                  <dd className="mt-2.5 text-body-sm leading-relaxed text-slate-muted">
                     {item.a}
                   </dd>
                 </div>
@@ -391,7 +391,7 @@ export default function PricingPage() {
               <h2 className="mx-auto max-w-2xl text-h1 text-white">
                 Start free. We move your data. You pay from month two.
               </h2>
-              <p className="mx-auto mt-5 max-w-lg text-[1.0625rem] leading-relaxed text-white/60">
+              <p className="mx-auto mt-5 max-w-lg text-body-lg leading-relaxed text-white/60">
                 Book a demo on your own numbers. If it fits, we migrate your existing records and you run your first payroll at no cost.
               </p>
               <div className="mt-9 flex flex-wrap justify-center gap-3">

@@ -20,7 +20,7 @@ import {
   ReviewMockup,
 } from "@/components/marketing/mockups";
 import { CAPABILITY_MOCKUPS } from "@/components/marketing/module-mockups";
-import { liveProductCta } from "@/lib/marketing/links";
+import { liveProductCta, newTabIfApp } from "@/lib/marketing/links";
 
 /* A module page has already shown the walkthrough, so the honest fallback when
    there's no live app to enter is the price, not another tour. */
@@ -68,11 +68,35 @@ export default async function ModulePage({
   return (
     <>
       {/* Hero */}
-      <section className={cn("px-4 pb-20 pt-16 sm:pt-20", WASH_CLASS[mod.wash])}>
+      {/*
+       * The wash runs up behind the floating nav.
+       *
+       * `MarketingNav` is `sticky top-0` and therefore occupies flow space at
+       * the top of the page, and the marketing layout's ground is `bg-sand`. So
+       * at scroll-top a washed hero used to start *below* the nav, leaving a
+       * 68px band of sand above a lavender hero — a visible colour seam on
+       * every product page. (It only showed at scroll-top: once stuck, the
+       * header's own box is transparent and the wash scrolls under it.)
+       *
+       * `-mt-20` pulls the section up behind the nav and the top padding adds
+       * the same 80px back, so the heading lands exactly where it did before
+       * while the wash reaches y=0. The pull is deliberately larger than the
+       * nav's rendered height — overshooting only hides more of the wash behind
+       * an opaque pill, whereas undershooting leaves a sliver of sand.
+       *
+       * The nav carries `z-50` and this section no z-index, so the pill still
+       * paints above the wash.
+       */}
+      <section
+        className={cn(
+          "-mt-20 px-4 pb-20 pt-36 sm:pt-40",
+          WASH_CLASS[mod.wash],
+        )}
+      >
         <div className="container-page">
           <Reveal>
             <nav aria-label="Breadcrumb" className="mb-6">
-              <ol className="flex items-center gap-2 text-[0.8125rem] text-slate-muted">
+              <ol className="flex items-center gap-2 text-meta text-slate-muted">
                 <li>
                   <Link href="/" className="hover:text-slate">
                     Product
@@ -86,7 +110,7 @@ export default async function ModulePage({
             <div className="text-center">
               <span
                 className={cn(
-                  "inline-flex items-center rounded-lg px-2.5 py-1 text-[0.75rem] font-medium",
+                  "inline-flex items-center rounded-lg px-2.5 py-1 text-meta font-medium",
                   CHIP_CLASS[mod.wash],
                 )}
               >
@@ -101,7 +125,7 @@ export default async function ModulePage({
               </p>
 
               {mod.statutory && (
-                <p className="mt-6 inline-flex rounded-full bg-white/70 px-4 py-2 text-[0.8125rem] font-medium text-slate">
+                <p className="mt-6 inline-flex rounded-full bg-white/70 px-4 py-2 text-meta font-medium text-slate">
                   {mod.statutory}
                 </p>
               )}
@@ -110,7 +134,12 @@ export default async function ModulePage({
                 <Pill href="/demo" variant="solid" size="lg" arrow>
                   Book a demo
                 </Pill>
-                <Pill href={cta.href} variant="quiet" size="lg">
+                <Pill
+                  href={cta.href}
+                  variant="quiet"
+                  size="lg"
+                  {...newTabIfApp(cta.href)}
+                >
                   {cta.label}
                 </Pill>
               </div>
@@ -147,11 +176,11 @@ export default async function ModulePage({
                     )}
                   >
                     <div className={cn(flipped && "lg:order-2")}>
-                      <span className="text-[0.875rem] font-medium tabular-nums text-slate-muted">
+                      <span className="text-body-sm font-medium tabular-nums text-slate-muted">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <h3 className="mt-2 text-h3 text-slate">{cap.title}</h3>
-                      <p className="mt-4 max-w-md text-[0.9375rem] leading-relaxed text-slate-muted">
+                      <p className="mt-4 max-w-md text-body leading-relaxed text-slate-muted">
                         {cap.detail}
                       </p>
                     </div>
@@ -180,10 +209,6 @@ export default async function ModulePage({
         <div className="container-page">
           <Reveal>
             <h2 className="text-h3 text-slate">The rest of the platform</h2>
-            <p className="mt-3 max-w-xl text-[0.9375rem] text-slate-muted">
-              Every module reads from the same employee record, so nothing has
-              to be entered twice.
-            </p>
           </Reveal>
 
           <ul className="mt-9 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -194,10 +219,10 @@ export default async function ModulePage({
                   className="group flex h-full items-start gap-3 rounded-2xl border border-sand-line bg-sand p-5 transition-all duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-0.5 hover:bg-white"
                 >
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-[1.0625rem] font-medium text-slate">
+                    <h3 className="text-body-lg font-medium text-slate">
                       {other.label}
                     </h3>
-                    <p className="mt-1.5 text-[0.875rem] leading-snug text-slate-muted">
+                    <p className="mt-1.5 text-body-sm leading-snug text-slate-muted">
                       {other.headline}
                     </p>
                   </div>

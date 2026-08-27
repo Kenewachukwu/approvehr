@@ -59,10 +59,10 @@ export default function DemoPage() {
                     />
                   </span>
                   <div>
-                    <h2 className="text-[0.9375rem] font-medium text-slate">
+                    <h2 className="text-body font-medium">
                       {item.title}
                     </h2>
-                    <p className="mt-1 text-[0.875rem] leading-relaxed text-slate-muted">
+                    <p className="mt-1 text-body-sm leading-relaxed text-slate-muted">
                       {item.body}
                     </p>
                   </div>
@@ -71,7 +71,7 @@ export default function DemoPage() {
             </ul>
 
             <div className="mt-10 border-t border-sand-line pt-8">
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-widest text-slate-muted">
+              <p className="text-meta font-semibold uppercase tracking-widest text-slate-muted">
                 Trusted by Nigerian teams in energy, government and technology
               </p>
               <div className="mt-5 grid grid-cols-4 gap-x-6 gap-y-4">
@@ -89,7 +89,7 @@ export default function DemoPage() {
             </div>
 
             <figure className="mt-7 rounded-2xl border border-sand-line bg-white/70 p-6">
-              <blockquote className="text-[0.9375rem] leading-relaxed text-slate">
+              <blockquote className="text-body leading-relaxed text-slate">
                 &ldquo;Compliance and scale were what kept me up. Payroll and
                 tax now run themselves, and I finally get numbers I can make
                 decisions on instead of numbers I have to check.&rdquo;
@@ -103,10 +103,10 @@ export default function DemoPage() {
                   className="size-10 shrink-0 rounded-full object-cover"
                 />
                 <div className="min-w-0">
-                  <p className="text-[0.875rem] font-medium text-slate">
+                  <p className="text-body-sm font-medium text-slate">
                     Ayo Oseni
                   </p>
-                  <p className="text-[0.8125rem] text-slate-muted">
+                  <p className="text-meta text-slate-muted">
                     Founder, USCExperts
                   </p>
                 </div>
