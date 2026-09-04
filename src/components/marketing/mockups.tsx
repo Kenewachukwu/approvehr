@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { PayrollRowFigures, PayrollTotalFigure } from "./payroll-figures";
 
 /*
  * Simplified renderings of real screens. Drawn in markup rather than exported
@@ -92,35 +93,44 @@ function DayFrame({
 /** The hero mockup. A payroll run mid-approval. */
 export function PayrollMockup({ className }: { className?: string }) {
   const rows = [
-    { name: "Chioma Aduba", amount: "₦1,850,000", delta: true },
-    { name: "Obinna Ezeh", amount: "₦1,650,000", delta: false },
-    { name: "Kemi Balogun", amount: "₦1,420,000", delta: true },
-    { name: "Zainab Yusuf", amount: "₦980,000", delta: false },
+    { name: "Chioma Aduba", amount: 1850000 },
+    { name: "Obinna Ezeh", amount: 1650000 },
+    { name: "Kemi Balogun", amount: 1420000 },
+    { name: "Zainab Yusuf", amount: 980000 },
   ];
 
   return (
     <NightFrame className={className}>
       <div className="p-5">
         <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-meta uppercase tracking-[0.1em] text-white/40">
-              August payroll
-            </p>
-            <p className="mt-1.5 text-[1.75rem] font-medium tracking-tight text-white">
-              ₦93,004,500
-            </p>
-          </div>
+          <PayrollTotalFigure label="August payroll" value={93004500} />
           <span className="rounded-full bg-success/20 px-2.5 py-1 text-meta font-medium text-success">
             Ready to approve
           </span>
         </div>
 
-        {/* Deduction split */}
+        {/* Deduction split. Fills in on load rather than sitting static — the
+            same "value arriving" language the module cards below use on
+            hover (see mockups.tsx's other cards), just looped on a timer
+            instead of gated on a cursor, since this is the one mockup on the
+            page nobody has hovered yet. */}
         <div className="mt-4 flex h-1.5 overflow-hidden rounded-full">
-          <span className="h-full bg-success" style={{ width: "73%" }} />
-          <span className="h-full bg-warning" style={{ width: "16%" }} />
-          <span className="h-full bg-info" style={{ width: "8%" }} />
-          <span className="h-full bg-white/20" style={{ width: "3%" }} />
+          <span
+            className="animate-mockup-fill h-full bg-success"
+            style={{ width: "73%" }}
+          />
+          <span
+            className="animate-mockup-fill h-full bg-warning"
+            style={{ width: "16%" }}
+          />
+          <span
+            className="animate-mockup-fill h-full bg-info"
+            style={{ width: "8%" }}
+          />
+          <span
+            className="animate-mockup-fill h-full bg-white/20"
+            style={{ width: "3%" }}
+          />
         </div>
         <div className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-meta text-white/50">
           <span className="flex items-center gap-1.5">
@@ -137,24 +147,7 @@ export function PayrollMockup({ className }: { className?: string }) {
           </span>
         </div>
 
-        <div className="mt-5 flex flex-col gap-2.5">
-          {rows.map((r) => (
-            <div key={r.name} className="flex items-center gap-3">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/8 text-meta font-medium text-white/70">
-                {r.name
-                  .split(" ")
-                  .map((p) => p[0])
-                  .join("")}
-              </span>
-              <span className="min-w-0 flex-1 truncate text-meta text-white/70">
-                {r.name}
-              </span>
-              <span className="text-meta font-medium tabular-nums text-white">
-                {r.amount}
-              </span>
-            </div>
-          ))}
-        </div>
+        <PayrollRowFigures rows={rows} className="mt-5 flex flex-col gap-2.5" />
       </div>
 
       <div className="flex items-center gap-2 border-t border-night-line px-5 py-3.5">
@@ -202,12 +195,12 @@ export function PipelineMockup({ className }: { className?: string }) {
 
               {/* The travelling card: leaves Screening, lands in Interview. */}
               {ci === 1 && (
-                <div className="transition-all duration-500 ease-[var(--ease-out-soft)] group-hover:-translate-y-1 group-hover:opacity-0">
+                <div className="transition-all duration-500 ease-out-soft group-hover:-translate-y-1 group-hover:opacity-0">
                   <MiniCard highlight />
                 </div>
               )}
               {ci === 2 && (
-                <div className="translate-y-1 opacity-0 transition-all delay-200 duration-500 ease-[var(--ease-out-soft)] group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="translate-y-1 opacity-0 transition-all delay-200 duration-500 ease-out-soft group-hover:translate-y-0 group-hover:opacity-100">
                   <MiniCard highlight />
                 </div>
               )}
@@ -253,7 +246,7 @@ export function PayrollCardMockup({ className }: { className?: string }) {
     <DayFrame className={cn("p-3.5", className)}>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-meta uppercase tracking-wide text-slate/40">
+          <p className="text-meta text-slate/40">
             August payroll
           </p>
           <p className="mt-0.5 text-body-lg font-medium tabular-nums text-slate">
@@ -279,7 +272,7 @@ export function PayrollCardMockup({ className }: { className?: string }) {
         ].map(([tone, w]) => (
           <span
             key={tone}
-            className={cn("h-full transition-[width] duration-700 ease-[var(--ease-out-soft)]", tone)}
+            className={cn("h-full transition-[width] duration-700 ease-out-soft", tone)}
             style={{ width: w }}
           />
         ))}
@@ -293,7 +286,7 @@ export function PayrollCardMockup({ className }: { className?: string }) {
         ].map(([label, amount], i) => (
           <div
             key={label}
-            className="flex items-center justify-between transition-transform duration-300 ease-[var(--ease-out-soft)] group-hover:translate-x-0.5"
+            className="flex items-center justify-between transition-transform duration-300 ease-out-soft group-hover:translate-x-0.5"
             style={{ transitionDelay: `${i * 60}ms` }}
           >
             <span className="text-meta text-slate/55">{label}</span>
@@ -329,7 +322,7 @@ export function LeaveMockup({ className }: { className?: string }) {
         {[booked, booked2].map((set, row) => (
           <div key={row} className="flex items-center gap-2">
             <span className="size-5 shrink-0 rounded-full bg-slate/10" />
-            <div className="flex flex-1 gap-[3px]">
+            <div className="flex flex-1 gap-0.75">
               {Array.from({ length: 14 }).map((_, i) => {
                 const on = set.has(i);
                 const weekend = i % 7 === 5 || i % 7 === 6;
@@ -338,7 +331,7 @@ export function LeaveMockup({ className }: { className?: string }) {
                   <span
                     key={i}
                     className={cn(
-                      "h-5 flex-1 rounded-[3px] transition-colors duration-300 ease-[var(--ease-out-soft)]",
+                      "h-5 flex-1 rounded-[3px] transition-colors duration-300 ease-out-soft",
                       on
                         ? row === 0
                           ? "bg-success"
@@ -406,12 +399,12 @@ export function RecordMockup({ className }: { className?: string }) {
           "Location",
         ].map((label, i) => (
           <div key={label}>
-            <p className="text-meta uppercase tracking-wide text-slate/35">
+            <p className="text-meta text-slate/35">
               {label}
             </p>
             <span className="mt-1 block h-1.5 overflow-hidden rounded-full bg-slate/6">
               <span
-                className="block h-full w-0 rounded-full bg-slate/20 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
+                className="block h-full w-0 rounded-full bg-slate/20 transition-[width] duration-500 ease-out-soft"
                 style={{
                   ["--w" as string]: label.length > 9 ? "80%" : "62%",
                   transitionDelay: `${i * 70}ms`,
@@ -454,7 +447,7 @@ export function ReviewMockup({ className }: { className?: string }) {
             </div>
             <span className="block h-1.5 overflow-hidden rounded-full bg-slate/8">
               <span
-                className="block h-full w-0 rounded-full bg-[#7c5cd6] transition-[width] duration-700 ease-[var(--ease-out-soft)]"
+                className="block h-full w-0 rounded-full bg-cat-4 transition-[width] duration-700 ease-out-soft"
                 style={{
                   ["--w" as string]: `${s.pct}%`,
                   transitionDelay: `${i * 90}ms`,
@@ -501,7 +494,7 @@ export function DeskMockup({ className }: { className?: string }) {
         {tickets.map((t, i) => (
           <div
             key={t.label}
-            className="flex items-center gap-2 rounded-lg border border-slate/8 p-2 transition-colors duration-300 ease-[var(--ease-out-soft)] group-hover:border-success-line group-hover:bg-wash-green"
+            className="flex items-center gap-2 rounded-lg border border-slate/8 p-2 transition-colors duration-300 ease-out-soft group-hover:border-success-line group-hover:bg-wash-green"
             style={{ transitionDelay: `${i * 120}ms` }}
           >
             <span
@@ -541,16 +534,16 @@ export function DeskMockup({ className }: { className?: string }) {
 /** Used in the Nigeria section. A filing schedule, ticked off. */
 export function StatutoryMockup({ className }: { className?: string }) {
   const rows = [
-    { label: "PAYE — Lagos IRS", value: "₦14,203,880", done: true },
-    { label: "Pension — 4 PFAs", value: "₦8,140,200", done: true },
-    { label: "NHF — FMBN", value: "₦2,325,110", done: true },
+    { label: "PAYE, Lagos IRS", value: "₦14,203,880", done: true },
+    { label: "Pension, 4 PFAs", value: "₦8,140,200", done: true },
+    { label: "NHF, FMBN", value: "₦2,325,110", done: true },
     { label: "NSITF", value: "₦930,045", done: false },
   ];
 
   return (
     <NightFrame className={className}>
       <div className="p-5">
-        <p className="text-meta uppercase tracking-[0.1em] text-white/40">
+        <p className="text-meta text-white/40">
           August remittances
         </p>
         <div className="mt-4 flex flex-col gap-3">

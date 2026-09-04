@@ -26,6 +26,31 @@
  * hours a week", no "trusted by 500 companies", no invented percentages. The
  * category is full of them and we do not get to use one until it is true and
  * we can show the working.
+ *
+ * ## The drafting suggestions, and why the copy is written the way it is
+ *
+ * Performance is the one module where the product generates text
+ * (`modules/ai/` in the API; `lib/api/ai.ts` and
+ * `components/performance/suggestions.tsx` here). It drafts three things a
+ * person then edits, and nothing else. It does not score, rank, decide, predict
+ * or analyse anybody.
+ *
+ * So the copy names the three, and then spends more words on the limits than on
+ * the capability — because the limits are what is actually different about it,
+ * and because "AI-powered" was flagged on this site once already, when there was
+ * no AI anywhere in the codebase. Every line in `limits` below is a property of
+ * the code, not an aspiration:
+ *
+ * - nothing saved → `modules/ai/service.ts` takes a `TenantDb` and issues no
+ *   write with it; there is no accept-suggestion endpoint;
+ * - says what it was based on → `Suggestion.groundedIn` is required, and
+ *   `SuggestionPanel` renders the facts verbatim behind a reveal;
+ * - no figure on a measure → the prompt forbids targets and `Measures` renders
+ *   none;
+ * - no gap, no suggestion → `suggestDevelopment` refuses somebody at or above
+ *   target rather than inventing a weakness.
+ *
+ * Nothing about accuracy, hours saved or adoption. None of it is measured.
  */
 
 export type ModuleId =
@@ -60,6 +85,16 @@ export type ModuleDef = {
   capabilities: { title: string; detail: string }[];
   /** The specific Nigerian obligation this module handles, where it has one. */
   statutory?: string;
+  /**
+   * What a module deliberately will not do, stated on its own page.
+   *
+   * Optional, and currently carried by Performance alone — see the drafting
+   * note in the header. It exists because a capability bullet is one sentence
+   * and some claims are only honest with their limits attached in the same
+   * breath. If you add one to another module, the same rule applies: every
+   * point has to be a property of the code somebody could go and read.
+   */
+  limits?: { heading: string; lead: string; points: string[] };
 };
 
 export const MODULES: ModuleDef[] = [
@@ -74,7 +109,7 @@ export const MODULES: ModuleDef[] = [
       {
         title: "Employee records",
         detail:
-          "Personal details, pay history, bank and pension identifiers, next of kin, and every document — attached to the person, not a folder.",
+          "Personal details, pay history, bank and pension identifiers, next of kin, and every document, attached to the person, not a folder.",
       },
       {
         title: "Employee self-service",
@@ -140,7 +175,7 @@ export const MODULES: ModuleDef[] = [
       {
         title: "Requisitions with approval",
         detail:
-          "A role opens with a band, a headcount and a hiring team — approved by the budget holder before it goes live.",
+          "A role opens with a band, a headcount and a hiring team, approved by the budget holder before it goes live.",
       },
       {
         title: "Pipelines you configure",
@@ -150,7 +185,7 @@ export const MODULES: ModuleDef[] = [
       {
         title: "Screening from your website",
         detail:
-          "Knockout questions and structured scorecards happen on the same application — no separate spreadsheet.",
+          "Knockout questions and structured scorecards happen on the same application, no separate spreadsheet.",
       },
       {
         title: "Offers",
@@ -198,9 +233,15 @@ export const MODULES: ModuleDef[] = [
   {
     id: "performance",
     label: "Performance",
-    headline: "Trackable objectives and reviews",
+    headline: "Performance without bias",
+    /* Leads with the review-language check, at the product owner's
+       instruction — it's the headline's whole argument, and the one
+       differentiator no incumbent ships. Deliberately not called AI: no
+       model call, nothing leaves the browser, checked before Send. Quoted in
+       five places, so an over-reaching word here becomes a claim over the
+       homepage grid and the platform rail as well. */
     blurb:
-      "Set objectives that ladder up to company goals and run review cycles on a schedule. Every rating carries the evidence behind it.",
+      "A built-in language check flags biased wording — comparisons, absolutes, protected characteristics — before a review is sent. Objectives ladder up to company goals, and every rating carries its evidence.",
     wash: "violet",
     capabilities: [
       {
@@ -214,6 +255,11 @@ export const MODULES: ModuleDef[] = [
           "Self, manager and peer review on a schedule you set, with reminders that go out without you chasing.",
       },
       {
+        title: "Review-language check",
+        detail:
+          "Flags comparisons, absolute language, and mentions of a protected characteristic before a review is sent.",
+      },
+      {
         title: "KPI measuring",
         detail:
           "Define the KPIs that matter per role and weight them. Scores stay comparable across a department.",
@@ -223,7 +269,28 @@ export const MODULES: ModuleDef[] = [
         detail:
           "See rating distribution across teams before publishing, so one lenient manager cannot skew a cycle.",
       },
+      {
+        /* "AI-assisted drafting", not "AI-powered performance reviews".
+           The second claims the AI does the reviewing, and it does not — it
+           drafts one field a person then edits. The distinction is the whole of
+           what makes this claim defensible when somebody asks what the AI
+           actually does. */
+        title: "AI-assisted drafting",
+        detail:
+          "Ask for a draft objective under a company goal, or development areas behind a competency scored below target. A language model writes it; you edit it before anything is saved.",
+      },
     ],
+    limits: {
+      heading: "What the drafting will not do",
+      lead: "Three fields offer a draft, an objective under a company goal, a progress note from a headline you typed, and development areas behind a competency scored below its target. A language model writes it. You decide whether any of it survives.",
+      points: [
+        "Nothing it writes is saved. Every suggestion lands in a field you edit and submit yourself.",
+        "It says what it was based on, and the exact facts it was given are one click away.",
+        "It puts no figure on a suggested measure. The target is yours to set.",
+        "It never rates anybody and never writes about what a person is like. It has competency scores; the judgement stays the manager's.",
+        "Where somebody is at or above target on everything, it says there is no gap rather than inventing one.",
+      ],
+    },
   },
   {
     id: "desk",

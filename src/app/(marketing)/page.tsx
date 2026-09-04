@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Check } from "lucide-react";
+import { Check, Layers, Radar, ShieldCheck, Sparkles } from "lucide-react";
 import { Pill } from "@/components/marketing/pill";
 import { CountUp, Reveal } from "@/components/marketing/motion";
 import { PlatformOverview } from "@/components/marketing/platform-overview";
@@ -16,8 +16,8 @@ import {
   PayrollMockup,
   StatutoryMockup,
 } from "@/components/marketing/mockups";
-import { quote } from "@/lib/marketing/pricing";
 import { liveProductCta, newTabIfApp } from "@/lib/marketing/links";
+import { quote } from "@/lib/marketing/pricing";
 
 /* Secondary CTAs. Both promise a running product, so both degrade to something
    that exists when the app isn't deployed alongside the site. */
@@ -31,10 +31,39 @@ const closingCta = liveProductCta("Explore the product first", {
 });
 
 export const metadata: Metadata = {
-  title: "HR and payroll software for Nigerian companies",
+  title: "HR payroll intelligence for Nigerian companies",
   description:
-    "One system for employee records, payroll, recruitment, leave and approvals. PAYE, pension and NHF calculated to current Nigerian law, with every schedule your state IRS and PFAs expect.",
+    "Your HR intelligence partner: employee records, payroll, recruitment, leave and approvals in one system that checks its own arithmetic, tracks Nigerian statutory law automatically, and drafts the busywork so your team reviews instead of starting from nothing.",
 };
+
+/**
+ * The "HR intelligence" pillars. Each one is a real, shipped capability, not
+ * a roadmap promise — see the closing line under the grid. Keep it that way:
+ * if a pillar stops being true of the product, cut it rather than soften the
+ * wording around it.
+ */
+const INTELLIGENCE = [
+  {
+    icon: ShieldCheck,
+    title: "Statutory law, tracked automatically",
+    body: "PAYE bands, pension rates, reliefs and NHF update the moment Nigerian law changes. Nobody on your team maintains a rate table.",
+  },
+  {
+    icon: Radar,
+    title: "Accurate information assured",
+    body: "Every payroll is checked against its own arithmetic before you ever see it. If a number could not be true (net pay above gross, tax above the top band), the run refuses itself and says exactly why.",
+  },
+  {
+    icon: Sparkles,
+    title: "Start with our templates",
+    body: "Draft objectives from a company goal, a first pass at a progress note, development areas grounded in real scores. Every draft is reviewed by a person before it means anything.",
+  },
+  {
+    icon: Layers,
+    title: "As simple as your company needs",
+    body: "A five-person business sees six menu items. A five-hundred-person group sees the governance it actually needs. The system reveals itself as you grow into it, not all at once.",
+  },
+];
 
 /**
  * Three shapes of company, each tied to a setting that actually differs
@@ -74,6 +103,12 @@ export default function HomePage() {
       <section className="px-4 pb-20 pt-16 sm:pt-24">
         <div className="container-page">
           <div className="text-center">
+            <Reveal>
+              <p className="text-meta font-semibold text-accent">
+                Your HR intelligence partner
+              </p>
+            </Reveal>
+
             <Reveal delay={60}>
               <h1 className="mx-auto mt-5 max-w-4xl text-mega text-slate">
                 A smarter way to manage staff.
@@ -82,7 +117,7 @@ export default function HomePage() {
 
             <Reveal delay={120}>
               <p className="mx-auto mt-7 max-w-2xl text-lead text-slate-muted">
-                Employee records, payroll, recruitment, leave and approvals —
+                Employee records, payroll, recruitment, leave and approvals,
                 managed in one platform.
               </p>
             </Reveal>
@@ -90,7 +125,7 @@ export default function HomePage() {
             <Reveal delay={180}>
               <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
                 <Pill href="/demo" variant="solid" size="lg" arrow>
-                  Start free — book a demo
+                  Start free, book a demo
                 </Pill>
                 <Pill
                   href={heroCta.href}
@@ -108,47 +143,45 @@ export default function HomePage() {
           </div>
 
           <Reveal delay={240}>
-            <div className="mt-16 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-              <PayrollMockup />
-              <div className="flex flex-col gap-5">
-                {[
-                  {
-                    title: "Approval before money moves",
-                    body: "Every payroll is prepared, reviewed and approved by the appropriate office. The payment file only exists after approval.",
-                  },
-                  {
-                    title: "Automated deductions",
-                    body: "PAYE bands, 8% and 10% pension, NHF. We track the changes so you do not have to.",
-                  },
-                  {
-                    title: "Auto-remittance schedules",
-                    body: "Every remittance schedule is generated automatically, split by PFA and by state.",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex gap-3 rounded-2xl border border-sand-line bg-white/50 p-5"
-                  >
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-success">
-                      <Check
-                        aria-hidden="true"
-                        className="size-3 text-slate"
-                        strokeWidth={3}
-                      />
-                    </span>
-                    <div>
-                      <h3 className="text-body font-medium text-slate">
-                        {item.title}
-                      </h3>
-                      <p className="mt-1 text-body-sm leading-relaxed text-slate-muted">
-                        {item.body}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="mt-16">
+              <PayrollMockup className="mx-auto max-w-2xl" />
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      <ClientLogos />
+
+      {/* ------------------------------------------------------ Intelligence */}
+      <section className="px-4 py-24">
+        <div className="container-page">
+          <Reveal>
+            <SectionHeading
+              eyebrow="HR intelligence"
+              title="Your HR intelligence partner, not just another system of record."
+              lead="Most HR software stores what happened. Ours checks it, flags what needs a second look, and gets a head start on the parts that used to take all day."
+            />
+          </Reveal>
+
+          <div className="mt-14 grid gap-5 sm:grid-cols-2">
+            {INTELLIGENCE.map((item, i) => (
+              <Reveal key={item.title} as="article" delay={i * 70}>
+                <div className="flex h-full flex-col gap-3 rounded-3xl border border-sand-line bg-white/60 p-7">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                    <item.icon
+                      aria-hidden="true"
+                      className="size-5 text-accent"
+                      strokeWidth={2}
+                    />
+                  </span>
+                  <h3 className="text-h4 text-slate">{item.title}</h3>
+                  <p className="text-body leading-relaxed">
+                    {item.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -167,18 +200,18 @@ export default function HomePage() {
             {SHAPES.map((shape, i) => (
               <Reveal key={shape.title} as="article" delay={i * 80}>
                 <div className="group h-full overflow-hidden rounded-3xl border border-sand-line bg-sand">
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  <div className="relative aspect-4/3 overflow-hidden">
                     <Image
                       src={shape.src}
                       alt={shape.alt}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.03]"
+                      className="object-cover transition-transform duration-500 ease-out-soft group-hover:scale-[1.03]"
                     />
                   </div>
                   <div className="p-6">
                     <h3 className="text-h4 text-slate">{shape.title}</h3>
-                    <p className="mt-2.5 text-body leading-relaxed text-slate-muted">
+                    <p className="mt-2.5 text-body leading-relaxed">
                       {shape.body}
                     </p>
                     <p className="mt-4 inline-flex rounded-full bg-white px-3 py-1 text-meta font-medium text-slate-soft">
@@ -191,8 +224,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <ClientLogos />
 
       {/* -------------------------------------------------- Platform rail */}
       <section className="px-4 py-24">
@@ -226,7 +257,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Statutory compliance"
               title="Most global HR tools stop at salary."
-              lead="They store what someone earns. Then the real work starts — PAYE split by state, pension split by PFA, NHF, NSITF — and it lands back on your finance lead, a spreadsheet and a consultant on retainer. That is the part we built first."
+              lead="They store what someone earns. Then the real work starts, PAYE split by state, pension split by PFA, NHF, NSITF, and it lands back on your finance lead, a spreadsheet and a consultant on retainer. That is the part we built first."
             />
             <ul className="mt-9 flex flex-col gap-4">
               {[
@@ -244,7 +275,7 @@ export default function HomePage() {
                       strokeWidth={3}
                     />
                   </span>
-                  <span className="text-body leading-relaxed text-slate-soft">
+                  <span className="text-body leading-relaxed">
                     {line}
                   </span>
                 </li>
@@ -265,7 +296,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="What one payroll produces"
               title="Approve once. Every obligation follows."
-              lead="One month for a 264-person company, staff in two states, three pension providers. Everything below comes out of a single approved payroll — computed, not re-keyed."
+              lead="One month for a 264-person company, staff in two states, three pension providers. Everything below comes out of a single approved payroll, computed, not re-keyed."
             />
           </Reveal>
 
@@ -274,34 +305,27 @@ export default function HomePage() {
               {
                 value: <CountUp to={7} />,
                 label:
-                  "Remittance schedules — one per state IRS, one per PFA, plus NHF and NSITF. Each formatted the way that body asks for it.",
+                  "Remittance schedules, one per state IRS, one per PFA, plus NHF and NSITF. Each formatted the way that body asks for it.",
               },
               {
                 value: <CountUp to={264} />,
                 label:
-                  "Itemised payslips, sent. Gross, every deduction, net — with employer pension shown separately, so nobody thinks their pay was cut.",
+                  "Itemised payslips, sent. Gross, every deduction, net, with employer pension shown separately, so nobody thinks their pay was cut.",
               },
               {
                 value: <CountUp to={3} />,
                 label:
-                  "A named office approves before a payment file exists. Prepared, reviewed, released — each step timestamped.",
+                  "A named office approves before a payment file exists. Prepared, reviewed, released, each step timestamped.",
               },
             ].map((item, i) => (
               <Reveal key={i} as="div" delay={i * 70}>
                 <dt className="text-mega text-slate">{item.value}</dt>
-                <dd className="mt-3 text-body leading-relaxed text-slate-muted">
+                <dd className="mt-3 text-body leading-relaxed">
                   {item.label}
                 </dd>
               </Reveal>
             ))}
           </dl>
-
-          <Reveal delay={220}>
-            <p className="mt-10 max-w-2xl text-meta leading-relaxed text-slate-muted">
-              Figures describe the worked example above, not a customer average.
-              We are pre-launch and will not quote results we have not earned.
-            </p>
-          </Reveal>
         </div>
       </section>
 
@@ -311,18 +335,23 @@ export default function HomePage() {
           <Reveal>
             <div className="grid gap-10 rounded-3xl bg-night p-10 lg:grid-cols-2 lg:items-center lg:p-14">
               <div>
-                <p className="mb-3 text-meta font-semibold uppercase tracking-[0.1em] text-white/40">
+                <p className="mb-3 text-meta font-semibold text-white/40">
                   Pricing
                 </p>
                 <h2 className="text-h1 text-white">
                   Start free. Pay from month two.
                 </h2>
-                <p className="mt-5 max-w-md text-body leading-relaxed text-white/60">
-                  Your first month on us. We migrate your existing employee records and payroll history at no cost. Pricing after that is per employee, per month — the rate falls as your team grows.
+                <p className="mt-5 max-w-md leading-relaxed text-white/60">
+                  Your first month on us. We migrate your existing employee records and payroll history at no cost. Pricing after that is per employee, per month, the rate falls as your team grows.
                 </p>
-                <Pill href="/demo" variant="solid" arrow className="mt-8">
-                  Get started free
-                </Pill>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Pill href="/demo" variant="solid" arrow>
+                    Get started free
+                  </Pill>
+                  <Pill href="/pricing" variant="quiet">
+                    See full pricing
+                  </Pill>
+                </div>
               </div>
 
               <div className="rounded-2xl border border-night-line p-7">
@@ -366,7 +395,7 @@ export default function HomePage() {
               </p>
               <div className="mt-9 flex flex-wrap justify-center gap-3">
                 <Pill href="/demo" variant="solid" size="lg" arrow>
-                  Start free — book a demo
+                  Start free, book a demo
                 </Pill>
                 <Pill
                   href={closingCta.href}

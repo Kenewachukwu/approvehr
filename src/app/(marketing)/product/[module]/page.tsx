@@ -20,7 +20,7 @@ import {
   ReviewMockup,
 } from "@/components/marketing/mockups";
 import { CAPABILITY_MOCKUPS } from "@/components/marketing/module-mockups";
-import { liveProductCta, newTabIfApp } from "@/lib/marketing/links";
+import { liveProductCta } from "@/lib/marketing/links";
 
 /* A module page has already shown the walkthrough, so the honest fallback when
    there's no live app to enter is the price, not another tour. */
@@ -138,7 +138,6 @@ export default async function ModulePage({
                   href={cta.href}
                   variant="quiet"
                   size="lg"
-                  {...newTabIfApp(cta.href)}
                 >
                   {cta.label}
                 </Pill>
@@ -180,7 +179,7 @@ export default async function ModulePage({
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <h3 className="mt-2 text-h3 text-slate">{cap.title}</h3>
-                      <p className="mt-4 max-w-md text-body leading-relaxed text-slate-muted">
+                      <p className="mt-4 max-w-md text-body leading-relaxed">
                         {cap.detail}
                       </p>
                     </div>
@@ -204,6 +203,47 @@ export default async function ModulePage({
         </div>
       </section>
 
+      {/*
+       * Limits, where a module has any.
+       *
+       * Performance is the only one today: it is the single place this product
+       * generates text, and a drafting feature described without its limits is
+       * the claim this site keeps refusing to make. The list is longer than the
+       * capability bullet that introduces it, deliberately — see the drafting
+       * note in `lib/marketing/modules.ts`.
+       *
+       * Hairlines rather than ticks. A green check against "it never rates
+       * anybody" reads as a feature being sold; these are boundaries, and they
+       * should look like a list somebody could hold us to.
+       */}
+      {mod.limits && (
+        <section className="border-t border-sand-line px-4 py-20">
+          <div className="container-page">
+            <Reveal>
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:gap-16">
+                <div>
+                  <h2 className="text-h2 text-slate">{mod.limits.heading}</h2>
+                  <p className="mt-5 text-body leading-relaxed">
+                    {mod.limits.lead}
+                  </p>
+                </div>
+
+                <ul className="flex flex-col">
+                  {mod.limits.points.map((point) => (
+                    <li
+                      key={point}
+                      className="border-t border-sand-line py-5 text-body leading-relaxed first:border-t-0 first:pt-0 lg:first:border-t lg:first:pt-5"
+                    >
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
       {/* Other modules */}
       <section className="border-t border-sand-line bg-sand-deep px-4 py-20">
         <div className="container-page">
@@ -216,7 +256,7 @@ export default async function ModulePage({
               <Reveal key={other.id} as="li" delay={i * 50}>
                 <Link
                   href={`/product/${other.id}`}
-                  className="group flex h-full items-start gap-3 rounded-2xl border border-sand-line bg-sand p-5 transition-all duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-0.5 hover:bg-white"
+                  className="group flex h-full items-start gap-3 rounded-2xl border border-sand-line bg-sand p-5 transition-all duration-300 ease-out-soft hover:-translate-y-0.5 hover:bg-white"
                 >
                   <div className="min-w-0 flex-1">
                     <h3 className="text-body-lg font-medium text-slate">

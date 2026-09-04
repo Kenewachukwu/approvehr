@@ -34,7 +34,7 @@ function Head({
   };
   return (
     <div className="mb-3 flex items-center justify-between gap-3">
-      <span className="text-meta font-medium uppercase tracking-[0.08em] text-slate/40">
+      <span className="text-meta font-medium text-slate/40">
         {title}
       </span>
       {chip && (
@@ -152,7 +152,7 @@ function EmployeeRecord() {
           ["Started", "14 Mar 2022"],
         ].map(([k, v]) => (
           <div key={k}>
-            <p className="text-meta uppercase tracking-wide text-slate/35">
+            <p className="text-meta text-slate/35">
               {k}
             </p>
             <p className="mt-0.5 truncate text-meta text-slate/75">{v}</p>
@@ -189,7 +189,7 @@ function SelfServiceChange() {
 
       <div className="mt-3 flex flex-col gap-2">
         <div className="rounded-lg border border-slate/8 p-2">
-          <p className="text-meta uppercase tracking-wide text-slate/35">
+          <p className="text-meta text-slate/35">
             Current
           </p>
           <p className="mt-0.5 text-meta text-slate/60 line-through">
@@ -197,7 +197,7 @@ function SelfServiceChange() {
           </p>
         </div>
         <div className="rounded-lg border border-success-line bg-wash-green p-2">
-          <p className="text-meta uppercase tracking-wide text-success-text/70">
+          <p className="text-meta text-success-text/70">
             Requested
           </p>
           <p className="mt-0.5 text-meta font-medium text-success-text">
@@ -315,7 +315,7 @@ function DeductionBreakdown() {
       <Row label="Net pay" value="₦1,308,003" strong />
       <div className="mt-auto rounded-lg bg-wash-green p-2">
         <p className="text-meta leading-snug text-success-text">
-          Pension and NHF come off before consolidated relief — the order most
+          Pension and NHF come off before consolidated relief, the order most
           spreadsheets get wrong. Employer pension of ₦185,000 sits on top of
           gross, not inside it.
         </p>
@@ -330,10 +330,10 @@ function FilingSchedule() {
       <Head title="August remittances" chip="3 of 4 filed" chipTone="amber" />
       <div className="flex flex-col gap-2">
         {[
-          ["PAYE — Lagos IRS", "₦14,203,880", true],
-          ["PAYE — Ogun IRS", "₦1,940,220", true],
-          ["Pension — 4 PFAs", "₦8,140,200", true],
-          ["NHF — FMBN", "₦2,325,110", false],
+          ["PAYE, Lagos IRS", "₦14,203,880", true],
+          ["PAYE, Ogun IRS", "₦1,940,220", true],
+          ["Pension, 4 PFAs", "₦8,140,200", true],
+          ["NHF, FMBN", "₦2,325,110", false],
         ].map(([label, amount, done]) => (
           <div key={label as string} className="flex items-center gap-2.5">
             <Tick on={done as boolean} />
@@ -368,7 +368,7 @@ function ApprovalChain() {
         ].map((s, i) => (
           <div key={s.n} className="relative flex items-center gap-2.5">
             {i < 2 && (
-              <span className="absolute left-[13px] top-7 h-2.5 w-px bg-slate/12" />
+              <span className="absolute left-3.25 top-7 h-2.5 w-px bg-slate/12" />
             )}
             <Person
               initials={s.n.split(" ").map((p) => p[0]).join("")}
@@ -400,7 +400,7 @@ function LoanSchedule() {
         </span>
         <span className="text-meta text-slate/45">₦75,000 / month</span>
       </div>
-      <div className="mt-2.5 flex gap-[3px]">
+      <div className="mt-2.5 flex gap-0.75">
         {Array.from({ length: 12 }).map((_, i) => (
           <span
             key={i}
@@ -518,7 +518,7 @@ function StageConfig() {
               {label as string}
             </span>
             {(locked as boolean) && (
-              <span className="text-meta uppercase tracking-wide text-slate/35">
+              <span className="text-meta text-slate/35">
                 Required
               </span>
             )}
@@ -551,7 +551,7 @@ function ScreeningAnswers() {
             <div className="flex items-start justify-between gap-2">
               <p className="text-meta text-slate/55">{q as string}</p>
               {pass !== null && (
-                <span className="shrink-0 text-meta uppercase tracking-wide text-slate/40">
+                <span className="shrink-0 text-meta text-slate/40">
                   Knockout
                 </span>
               )}
@@ -568,7 +568,7 @@ function ScreeningAnswers() {
         ))}
       </div>
       <p className="mt-auto text-meta leading-snug text-slate/45">
-        Above the ₦1.8m band ceiling — flagged before anyone books a call.
+        Above the ₦1.8m band ceiling, flagged before anyone books a call.
       </p>
     </DayFrame>
   );
@@ -654,7 +654,7 @@ function LeavePolicy() {
         ))}
       </div>
       <p className="mt-auto text-meta leading-snug text-slate/45">
-        Balances recalculate the moment a rule changes — no reissuing
+        Balances recalculate the moment a rule changes, no reissuing
         spreadsheets.
       </p>
     </DayFrame>
@@ -667,7 +667,7 @@ function LeaveApproval() {
       <Head title="Leave request" chip="With manager" chipTone="amber" />
       <Person initials="NE" name="Kemi Balogun" meta="12–16 Sep · 5 days" />
       <div className="mt-3 rounded-lg border border-slate/8 p-2">
-        <p className="text-meta uppercase tracking-wide text-slate/35">
+        <p className="text-meta text-slate/35">
           Who else is off
         </p>
         <div className="mt-1.5 flex flex-col gap-1">
@@ -739,7 +739,7 @@ function GoalCascade() {
     <DayFrame className={SHELL}>
       <Head title="Goal alignment" chip="Q3" chipTone="blue" />
       <div className="rounded-lg bg-slate px-2.5 py-1.5">
-        <p className="text-meta uppercase tracking-wide text-white/45">
+        <p className="text-meta text-white/45">
           Company
         </p>
         <p className="text-meta font-medium text-white">
@@ -752,7 +752,7 @@ function GoalCascade() {
           ["Sales", "40 new mid-market logos", 48],
         ].map(([team, goal, pct]) => (
           <div key={team as string} className="rounded-lg border border-slate/8 p-2">
-            <p className="text-meta uppercase tracking-wide text-slate/35">
+            <p className="text-meta text-slate/35">
               {team as string}
             </p>
             <p className="text-meta font-medium text-slate">
@@ -760,7 +760,7 @@ function GoalCascade() {
             </p>
             <span className="mt-1 block h-1 overflow-hidden rounded-full bg-slate/10">
               <span
-                className="block h-full rounded-full bg-[#7c5cd6]"
+                className="block h-full rounded-full bg-cat-4"
                 style={{ width: `${pct as number}%` }}
               />
             </span>
@@ -798,7 +798,7 @@ function ReviewCycle() {
               <span
                 className={cn(
                   "block h-full rounded-full",
-                  (pct as number) === 100 ? "bg-success" : "bg-[#7c5cd6]",
+                  (pct as number) === 100 ? "bg-success" : "bg-cat-4",
                 )}
                 style={{ width: `${pct as number}%` }}
               />
@@ -835,7 +835,7 @@ function CompetencyScores() {
             </div>
             <span className="block h-1.5 overflow-hidden rounded-full bg-slate/8">
               <span
-                className="block h-full rounded-full bg-[#7c5cd6]"
+                className="block h-full rounded-full bg-cat-4"
                 style={{ width: `${pct as number}%` }}
               />
             </span>
@@ -863,7 +863,7 @@ function Calibration() {
             <span
               className={cn(
                 "w-full rounded-t-md",
-                i === 2 ? "bg-[#7c5cd6]" : "bg-[#7c5cd6]/35",
+                i === 2 ? "bg-cat-4" : "bg-cat-4/35",
               )}
               style={{ height: `${(n / 38) * 84}px` }}
             />

@@ -18,7 +18,7 @@ const LOGOS = [
 export const metadata: Metadata = {
   title: "Book a demo",
   description:
-    "See the value of ApproveHR in ten minutes. No setup, no slides — just a focused look at what it can do for your organisation.",
+    "See the value of ApproveHR in ten minutes. No setup, no slides, just a focused look at what it can do for your organisation.",
 };
 
 export default function DemoPage() {
@@ -32,14 +32,14 @@ export default function DemoPage() {
             </h1>
             <p className="mt-6 text-lead text-slate-muted">
               In ten minutes you will see exactly what ApproveHR can do for
-              your team — no setup, no slides, just the value.
+              your team, no setup, no slides, just the value.
             </p>
 
             <ul className="mt-10 flex flex-col gap-5">
               {[
                 {
                   title: "You will see payroll done end to end",
-                  body: "PAYE and pension calculated, sent for approval, schedules generated — the whole thing, not a slide of it.",
+                  body: "PAYE and pension calculated, sent for approval, schedules generated, the whole thing, not a slide of it.",
                 },
                 {
                   title: "We will tell you if it does not fit",
@@ -71,7 +71,7 @@ export default function DemoPage() {
             </ul>
 
             <div className="mt-10 border-t border-sand-line pt-8">
-              <p className="text-meta font-semibold uppercase tracking-widest text-slate-muted">
+              <p className="text-meta font-semibold text-slate-muted">
                 Trusted by Nigerian teams in energy, government and technology
               </p>
               <div className="mt-5 grid grid-cols-4 gap-x-6 gap-y-4">
@@ -89,7 +89,7 @@ export default function DemoPage() {
             </div>
 
             <figure className="mt-7 rounded-2xl border border-sand-line bg-white/70 p-6">
-              <blockquote className="text-body leading-relaxed text-slate">
+              <blockquote className="text-body leading-relaxed">
                 &ldquo;Compliance and scale were what kept me up. Payroll and
                 tax now run themselves, and I finally get numbers I can make
                 decisions on instead of numbers I have to check.&rdquo;

@@ -4,12 +4,14 @@ import { Pill } from "@/components/marketing/pill";
 import { Reveal } from "@/components/marketing/motion";
 import { SectionHeading } from "@/components/marketing/sections";
 import { ClientLogos } from "@/components/marketing/social-proof";
+import { ADD_ONS, TIERS } from "@/lib/marketing/pricing";
 import { cn } from "@/lib/cn";
+import { PricingCalculator } from "./calculator";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Headcount-based pricing for Nigerian businesses. Talk to us about what your company would pay.",
+    "Per employee, per month, in naira. The rate falls as your headcount rises. See exactly what your company would pay.",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -38,7 +40,7 @@ const PLANS = [
     tagline: "Run payroll and hire without switching between systems.",
     features: [
       "Everything in Starter",
-      "Full payroll — PAYE, pension, NHF",
+      "Full payroll, PAYE, pension, NHF",
       "Remittance schedules per state IRS and PFA",
       "Attendance tracking & shifts",
       "Recruitment & applicant tracking",
@@ -110,7 +112,7 @@ const COMPARISON: TableSection[] = [
     module: "Payroll",
     rows: [
       { label: "Payslip generation", cells: [true, true, true, true] },
-      { label: "Full payroll — PAYE, pension, NHF", cells: [false, true, true, true] },
+      { label: "Full payroll, PAYE, pension, NHF", cells: [false, true, true, true] },
       { label: "Remittance schedules (state IRS & PFAs)", cells: [false, true, true, true] },
       { label: "Loans & salary advances", cells: [false, true, true, true] },
     ],
@@ -166,7 +168,7 @@ const COMPARISON: TableSection[] = [
 const FAQ = [
   {
     q: "How does pricing work?",
-    a: "We price per employee, per month, banded by headcount — the rate falls as your team grows. Tell us your headcount and we will give you an exact number in one conversation.",
+    a: "We price per employee, per month, banded by headcount, the rate falls as your team grows. Tell us your headcount and we will give you an exact number in one conversation.",
   },
   {
     q: "Is there an implementation fee?",
@@ -205,18 +207,38 @@ export default function PricingPage() {
               align="center"
               eyebrow="Pricing"
               title="Start free. Pay from month two."
-              lead="Your first month on us — run your first payroll, onboard your full team, and we migrate your existing data at no cost. After that, pricing is per employee, per month."
+              lead="Your first month on us, run your first payroll, onboard your full team, and we migrate your existing data at no cost. After that, pricing is per employee, per month."
             />
           </Reveal>
 
           <Reveal delay={100}>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <Pill href="/demo" variant="solid" size="lg" arrow>
-                Start free — book a demo
+                Start free, book a demo
               </Pill>
               <Pill href="/demo" variant="quiet" size="lg">
                 Talk to sales
               </Pill>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Calculator */}
+      <section className="px-4 py-20">
+        <div className="container-page">
+          <Reveal>
+            <h2 className="text-h2 text-slate">
+              Work out what it costs your company
+            </h2>
+            <p className="mt-3 max-w-xl text-body-sm leading-relaxed text-slate-muted">
+              Move the number to your headcount — the tier and the price
+              follow it.
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="mt-10">
+              <PricingCalculator />
             </div>
           </Reveal>
         </div>
@@ -228,12 +250,14 @@ export default function PricingPage() {
           <Reveal>
             <h2 className="text-h2 text-slate">Find your plan</h2>
             <p className="mt-3 max-w-xl text-body-sm leading-relaxed text-slate-muted">
-              Four tiers, one price per head. Every plan starts with a free month and free migration — no module fees bolted on later.
+              Four tiers, one price per head. Every plan starts with a free month and free migration, no module fees bolted on later.
             </p>
           </Reveal>
 
           <div className="mt-10 grid gap-5 lg:grid-cols-4">
-            {PLANS.map((plan, i) => (
+            {PLANS.map((plan, i) => {
+              const tier = TIERS.find((t) => t.id === plan.id)!;
+              return (
               <Reveal key={plan.id} as="div" delay={i * 60}>
                 <div
                   className={cn(
@@ -244,12 +268,22 @@ export default function PricingPage() {
                   )}
                 >
                   {plan.featured && (
-                    <span className="mb-3 self-start rounded-full bg-accent px-2.5 py-0.5 text-meta font-semibold uppercase tracking-wide text-white">
+                    <span className="mb-3 self-start rounded-full bg-accent px-2.5 py-0.5 text-meta font-semibold text-white">
                       Most popular
                     </span>
                   )}
                   <h3 className="text-h4 text-slate">{plan.name}</h3>
                   <p className="mt-0.5 text-meta text-slate-muted">{plan.band}</p>
+                  <p className="mt-4 text-[1.5rem] font-medium tracking-tight text-slate">
+                    {tier.pepm === null
+                      ? "Custom"
+                      : `₦${tier.pepm.toLocaleString("en-NG")}`}
+                  </p>
+                  {tier.pepm !== null && (
+                    <p className="text-meta text-slate-muted">
+                      per employee / month
+                    </p>
+                  )}
                   <p className="mt-4 text-meta leading-relaxed text-slate-soft">
                     {plan.tagline}
                   </p>
@@ -277,7 +311,8 @@ export default function PricingPage() {
                   </div>
                 </div>
               </Reveal>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -297,10 +332,10 @@ export default function PricingPage() {
 
           <Reveal delay={80}>
             <div className="mt-10 overflow-x-auto rounded-2xl border border-sand-line bg-white/70">
-              <table className="w-full min-w-[640px] border-collapse text-meta">
+              <table className="w-full min-w-160 border-collapse text-meta">
                 <thead>
                   <tr className="border-b border-sand-line">
-                    <th className="py-4 pl-6 pr-4 text-left text-meta font-semibold uppercase tracking-[0.08em] text-slate-muted">
+                    <th className="py-4 pl-6 pr-4 text-left text-meta font-semibold text-slate-muted">
                       Feature
                     </th>
                     {planNames.map((name) => (
@@ -320,7 +355,7 @@ export default function PricingPage() {
                       <tr key={`section-${si}`} className="border-t border-sand-line bg-sand/60">
                         <td
                           colSpan={5}
-                          className="py-2.5 pl-6 pr-4 text-meta font-semibold uppercase tracking-[0.08em] text-slate"
+                          className="py-2.5 pl-6 pr-4 text-meta font-semibold text-slate"
                         >
                           {section.module}
                         </td>
@@ -362,6 +397,32 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* Add-ons */}
+      <section className="border-y border-sand-line bg-sand-deep px-4 py-16">
+        <div className="container-page">
+          <Reveal>
+            <h2 className="text-h2 text-slate">Add-ons</h2>
+          </Reveal>
+          <div className="mt-9 grid gap-5 md:grid-cols-3">
+            {ADD_ONS.map((a, i) => (
+              <Reveal key={a.name} as="div" delay={i * 60}>
+                <div className="h-full rounded-2xl border border-sand-line bg-sand p-6">
+                  <h3 className="text-body-lg font-medium text-slate">
+                    {a.name}
+                  </h3>
+                  <p className="mt-1.5 text-body-sm font-medium text-success-text">
+                    {a.price}
+                  </p>
+                  <p className="mt-3 text-body-sm leading-relaxed text-slate-muted">
+                    {a.detail}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="px-4 py-20">
         <div className="container-page grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
@@ -396,7 +457,7 @@ export default function PricingPage() {
               </p>
               <div className="mt-9 flex flex-wrap justify-center gap-3">
                 <Pill href="/demo" variant="solid" size="lg" arrow>
-                  Start free — book a demo
+                  Start free, book a demo
                 </Pill>
               </div>
             </div>

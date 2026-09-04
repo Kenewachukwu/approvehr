@@ -113,7 +113,7 @@ export function MarketingNav() {
             </button>
 
             {productOpen && (
-              <div className="absolute left-0 top-full w-[440px] pt-2">
+              <div className="absolute left-0 top-full w-110 pt-2">
                 <div className="animate-scale-in grid grid-cols-2 gap-1 rounded-2xl bg-white p-2 shadow-[0_8px_16px_-4px_rgb(20_18_15/0.08),0_24px_48px_-12px_rgb(20_18_15/0.18)]">
                   {MODULES.map((m) => (
                     <Link
@@ -141,18 +141,6 @@ export function MarketingNav() {
           >
             Pricing
           </Link>
-          {appLinks
-            .filter(([, label]) => label === "Live demo")
-            .map(([href, label]) => (
-              <Link
-                key={label}
-                href={href}
-                {...newTabIfApp(href)}
-                className="rounded-full px-3 py-2 text-body-sm text-slate-soft transition-colors hover:text-slate"
-              >
-                {label}
-              </Link>
-            ))}
         </div>
 
         <div className="ml-auto flex items-center gap-2">
@@ -190,7 +178,7 @@ export function MarketingNav() {
       {/* Mobile sheet */}
       {open && (
         <div className="animate-scale-in mx-auto mt-2 max-w-5xl rounded-2xl bg-white p-3 shadow-[0_16px_40px_-12px_rgb(20_18_15/0.22)] lg:hidden">
-          <p className="px-3 pb-1.5 pt-2 text-meta uppercase tracking-[0.08em] text-slate-muted">
+          <p className="px-3 pb-1.5 pt-2 text-meta text-slate-muted">
             Product
           </p>
           {MODULES.map((m) => (
@@ -198,19 +186,24 @@ export function MarketingNav() {
               key={m.id}
               href={`/product/${m.id}`}
               onClick={() => setOpen(false)}
-              className="block rounded-xl px-3 py-2 text-body text-slate transition-colors hover:bg-sand"
+              className="block rounded-xl px-3 py-2 text-body transition-colors hover:bg-sand"
             >
               {m.label}
             </Link>
           ))}
           <div className="mt-2 border-t border-sand-line pt-2">
-            {([["/pricing", "Pricing"], ...appLinks] as [string, string][]).map(([href, label], i) => (
+            {(
+              [
+                ["/pricing", "Pricing"],
+                ...appLinks.filter(([, label]) => label !== "Live demo"),
+              ] as [string, string][]
+            ).map(([href, label], i) => (
               <Link
                 key={i}
                 href={href}
                 onClick={() => setOpen(false)}
                 {...newTabIfApp(href)}
-                className="block rounded-xl px-3 py-2 text-body text-slate transition-colors hover:bg-sand"
+                className="block rounded-xl px-3 py-2 text-body transition-colors hover:bg-sand"
               >
                 {label}
               </Link>
@@ -257,14 +250,14 @@ export function MarketingFooter() {
           <div>
             <Logo size={24} className="text-slate" />
             <p className="mt-4 max-w-xs text-body-sm leading-relaxed text-slate-muted">
-              HR, payroll and hiring for Nigerian companies. Built around the
-              statutory obligations you already have.
+              HR, payroll and hiring intelligence for Nigerian companies.
+              Built around the statutory obligations you already have.
             </p>
           </div>
 
           {FOOTER_LINKS.map((group) => (
             <div key={group.heading}>
-              <h3 className="text-meta font-semibold uppercase tracking-[0.08em] text-slate-muted">
+              <h3 className="text-meta font-semibold text-slate-muted">
                 {group.heading}
               </h3>
               <ul className="mt-4 flex flex-col gap-2.5">
