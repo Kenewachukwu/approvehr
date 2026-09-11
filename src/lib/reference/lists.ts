@@ -1,0 +1,303 @@
+/**
+ * Reference lists: the values that fill dropdowns and are not the product's own
+ * enums.
+ *
+ * ## Why this file exists
+ *
+ * These lists were declared inline in each screen that needed them, and had
+ * already drifted apart:
+ *
+ * - `people/new/form.tsx` offered **five** tax states — Lagos, Abuja, Ogun,
+ *   Rivers, Kano — so an employee taxed anywhere else could not be recorded.
+ * - `settings/company/form.tsx` offered all 36 states **and FCT**.
+ * - Those two disagreed on the name of the same place: `Abuja` in one, `FCT` in
+ *   the other. PAYE is remitted to a *state* tax authority, so a company filed
+ *   under `FCT` with staff taxed in `Abuja` never joins up.
+ * - `BANKS` and `PFAS` existed twice each, in `people/new/form.tsx` and
+ *   `people/[id]/record.tsx`, differing only by a leading empty option — two
+ *   copies that would drift the moment anybody added a bank to one.
+ *
+ * One definition, imported everywhere. That is the whole point of the file.
+ *
+ * ## These are defaults, not a model
+ *
+ * A company must be able to add, rename, reorder and retire any of these. The
+ * database-backed version of this (a tenant-scoped lookup table with an
+ * editor under Settings) is the real destination; this module is the seam it
+ * plugs into, so call sites do not change again when it lands. Call the
+ * accessor functions rather than reading the arrays directly, and the swap is
+ * invisible to screens.
+ *
+ * ## What is deliberately absent: bank codes
+ *
+ * Every entry in `BANKS` has a name and no code, and that is not an oversight.
+ * `src/modules/payments/file.ts` in the API says it plainly: the Bank Code
+ * column "is left empty rather than guessed: a wrong bank code routes money to
+ * the wrong institution." CBN/NIBSS codes are real data with real consequences
+ * and none are entered here from memory. They belong to the lookup table, where
+ * a company enters the codes their own bank portal expects and can be shown
+ * which are still missing.
+ *
+ * The same restraint applies to the bank list itself. It seeds institutions that
+ * are unambiguously operating, and does not attempt to be the CBN register —
+ * several Nigerian banks have merged or had licences revoked in recent years and
+ * a stale list presented as authoritative is worse than a short one a company
+ * completes itself.
+ */
+
+export type ReferenceItem = {
+  label: string;
+  /** Filled by the company, not shipped. See the note above. */
+  code?: string;
+};
+
+/* -------------------------------------------------------------------------- */
+/* Tax states                                                                  */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The 36 states and the Federal Capital Territory.
+ *
+ * `FCT` is the canonical spelling, because the tax authority is the FCT-IRS and
+ * that is the name on the filing. `Abuja` is accepted on the way in and mapped
+ * — see `canonicalTaxState`.
+ */
+export const NIGERIAN_STATES: readonly string[] = [
+  "Abia",
+  "Adamawa",
+  "Akwa Ibom",
+  "Anambra",
+  "Bauchi",
+  "Bayelsa",
+  "Benue",
+  "Borno",
+  "Cross River",
+  "Delta",
+  "Ebonyi",
+  "Edo",
+  "Ekiti",
+  "Enugu",
+  "FCT",
+  "Gombe",
+  "Imo",
+  "Jigawa",
+  "Kaduna",
+  "Kano",
+  "Katsina",
+  "Kebbi",
+  "Kogi",
+  "Kwara",
+  "Lagos",
+  "Nasarawa",
+  "Niger",
+  "Ogun",
+  "Ondo",
+  "Osun",
+  "Oyo",
+  "Plateau",
+  "Rivers",
+  "Sokoto",
+  "Taraba",
+  "Yobe",
+  "Zamfara",
+];
+
+/**
+ * Maps a stored tax state onto its canonical name.
+ *
+ * Existing records hold `Abuja`, because that is what the employee form offered.
+ * Reading them back through this keeps an old record selectable in a list that
+ * now says `FCT`, instead of silently showing an empty dropdown — which is how
+ * somebody's tax state gets quietly blanked on their next save.
+ *
+ * Unknown values pass through unchanged. A state this does not recognise is
+ * still the truth about that employee and must not be dropped.
+ */
+export function canonicalTaxState(value: string): string {
+  const trimmed = value.trim();
+  if (trimmed === "") return trimmed;
+
+  const aliases: Record<string, string> = {
+    abuja: "FCT",
+    "federal capital territory": "FCT",
+    "fct abuja": "FCT",
+    "abuja fct": "FCT",
+  };
+  const mapped = aliases[trimmed.toLowerCase()];
+  if (mapped) return mapped;
+
+  const known = NIGERIAN_STATES.find(
+    (state) => state.toLowerCase() === trimmed.toLowerCase(),
+  );
+  return known ?? trimmed;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Banks and pension providers                                                 */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The bank list used to live here, with seven institutions in it.
+ *
+ * It is `reference/banks.ts` now: 255 banks with their real NIBSS codes,
+ * generated by `scripts/refresh-banks.mts` from Paystack. Two lists of banks is
+ * the drift this file is otherwise about preventing — and the one that mattered
+ * was the short one, because a bank missing from a picker is somebody who
+ * cannot be paid.
+ *
+ * A code is never typed from memory. A wrong one routes money to the wrong
+ * institution, and nothing downstream would catch it.
+ */
+
+/**
+ * Licensed pension fund administrators.
+ *
+ * Same restraint as the banks: a starting point a company edits, not the PenCom
+ * register. The sector has consolidated repeatedly and an out-of-date name in a
+ * dropdown is a remittance sent to an administrator that no longer exists under
+ * that name.
+ */
+export const PENSION_PROVIDERS: readonly string[] = [
+  "ARM Pension Managers",
+  "Access Pensions",
+  "CrusaderSterling Pensions",
+  "FCMB Pensions",
+  "Fidelity Pension Managers",
+  "Guaranty Trust Pension Managers",
+  "Leadway Pensure PFA",
+  "NLPC Pension Fund Administrators",
+  "NPF Pensions",
+  "Nigerian University Pension Management Company",
+  "Norrenberger Pensions",
+  "PAL Pensions",
+  "Premium Pension",
+  "Radix Pension Managers",
+  "Stanbic IBTC Pension Managers",
+  "Tangerine APT Pensions",
+  "Trustfund Pensions",
+  "Veritas Glanvills Pensions",
+];
+
+/**
+ * Sentinel for "not one of these" in a pension-provider picker.
+ *
+ * The doc comment above calls this list "a starting point a company edits" —
+ * and until this existed, nothing actually let a company do that. The sector
+ * consolidates; a newly licensed PFA, or a merger this list has not caught up
+ * with, had no way onto a record short of editing this file. Picking this
+ * value is what reveals the free-text fallback; it is never itself saved —
+ * the picker swaps it for whatever was typed before the value leaves it.
+ */
+export const PENSION_PROVIDER_OTHER = "__other__";
+
+/**
+ * Whether `value` would need the free-text fallback in a provider picker —
+ * present, and not one of the fixed choices. Case-insensitive, matching
+ * `withCurrent` below, so "stanbic ibtc pension managers" is not treated as a
+ * custom name just because of how it was typed.
+ */
+export function isOtherPensionProvider(value: string): boolean {
+  const trimmed = value.trim();
+  if (!trimmed) return false;
+  return !PENSION_PROVIDERS.some(
+    (p) => p.toLowerCase() === trimmed.toLowerCase(),
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Free-text taxonomies                                                       */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Why a candidate was not taken forward.
+ *
+ * Editable for a reason beyond taste: these are the categories a company would
+ * have to stand behind if a rejection were ever questioned, so the wording has
+ * to be theirs.
+ */
+export const REJECTION_REASONS: readonly string[] = [
+  "Not enough relevant experience",
+  "Skills did not match the role",
+  "Salary expectation outside range",
+  "Withdrew from the process",
+  "Did not attend the interview",
+  "Failed a required check",
+  "Role filled by another candidate",
+  "Role no longer open",
+];
+
+/* -------------------------------------------------------------------------- */
+/* Accessors                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Prepends the blank option a `<select>` needs for "not set".
+ *
+ * Both copies of `BANKS` and `PFAS` differed from each other only by a leading
+ * `""`, which is a formatting detail leaking into what looked like data. It
+ * belongs here instead.
+ */
+export function withBlank(values: readonly string[]): readonly string[] {
+  return ["", ...values];
+}
+
+/**
+ * A list with a stored value guaranteed present.
+ *
+ * The rule every one of these accessors needs, in one place. A record holds
+ * whatever it holds — an older spelling, a name a company typed before any of
+ * this was centralised, a provider that has since been renamed — and a list that
+ * silently omits it makes an editor show "not set" over a value that *is* set.
+ * The user then either believes the field is empty or, worse, saves and finds
+ * the browser has substituted whichever option happened to be first.
+ *
+ * Appended rather than merged in place: seeing the odd one out at the end is
+ * itself information, and a company can correct it deliberately.
+ */
+function withCurrent(
+  values: readonly string[],
+  current?: string | null,
+): readonly string[] {
+  const trimmed = current?.trim();
+  if (!trimmed) return values;
+  const known = values.some((v) => v.toLowerCase() === trimmed.toLowerCase());
+  return known ? values : [...values, trimmed];
+}
+
+/**
+ * The list of tax states to show, with a stored value guaranteed present.
+ *
+ * Pass what the record currently holds. If it is a value the list does not carry
+ * — an old spelling, or a state a company added before this was centralised — it
+ * is included rather than dropped, so opening a record never silently clears a
+ * field the user did not touch.
+ *
+ * Read through `canonicalTaxState` first, so a record holding `Abuja` matches the
+ * list's `FCT` and is *not* appended as a thirty-eighth state.
+ */
+export function taxStateOptions(current?: string | null): readonly string[] {
+  if (!current) return NIGERIAN_STATES;
+
+  const canonical = canonicalTaxState(current);
+  const withIt = withCurrent(NIGERIAN_STATES, canonical);
+  return withIt === NIGERIAN_STATES
+    ? NIGERIAN_STATES
+    : [...withIt].sort((a, b) => a.localeCompare(b));
+}
+
+/**
+ * The pension providers to show, with a stored value guaranteed present.
+ *
+ * This one is not hypothetical. The seed directory records Adaeze Okonkwo's PFA
+ * as "Stanbic IBTC Pensions" and `PENSION_PROVIDERS` calls the same company
+ * "Stanbic IBTC Pension Managers" — so the record page's select had nothing to
+ * match and read "Not known yet" over a PFA that was on file. The sector has
+ * renamed and merged repeatedly; there will be more of these, and a remittance
+ * sent nowhere because a dropdown quietly dropped a name is the failure this
+ * prevents.
+ */
+export function pensionProviderOptions(
+  current?: string | null,
+): readonly string[] {
+  return withCurrent(PENSION_PROVIDERS, current);
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Check } from "lucide-react";
 import Image from "next/image";
 import { Reveal } from "@/components/marketing/motion";
+import { SITE_URL } from "@/lib/marketing/site";
 import { DemoForm } from "./form";
 
 const LOGOS = [
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
   title: "Book a demo",
   description:
     "See the value of ApproveHR in ten minutes. No setup, no slides, just a focused look at what it can do for your organisation.",
+  alternates: { canonical: `${SITE_URL}/demo` },
 };
 
 export default function DemoPage() {
@@ -31,8 +33,8 @@ export default function DemoPage() {
               Let us show you how to transform your organisation.
             </h1>
             <p className="mt-6 text-lead text-slate-muted">
-              In ten minutes you will see exactly what ApproveHR can do for
-              your team, no setup, no slides, just the value.
+              In ten minutes you will see exactly what ApproveHR can do for your
+              team, no setup, no slides, just the value.
             </p>
 
             <ul className="mt-10 flex flex-col gap-5">
@@ -59,9 +61,7 @@ export default function DemoPage() {
                     />
                   </span>
                   <div>
-                    <h2 className="text-body font-medium">
-                      {item.title}
-                    </h2>
+                    <h2 className="text-body font-medium">{item.title}</h2>
                     <p className="mt-1 text-body-sm leading-relaxed text-slate-muted">
                       {item.body}
                     </p>
